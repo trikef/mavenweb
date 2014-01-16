@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf>
+	<db no="1" view="on">
+		<name>main</name>
+		<driver>org.postgresql.Driver</driver>
+		<user>xxx</user>
+		<pass>xxx</pass>
+		<url>jdbc:postgresql://xxx:xxx/xxx</url>
+	</db>
+	<rss no="1" view="on">
+		<name>xxx</name>
+		<url>http://xxx.rdf</url>
+		<type>W3CBasic</type>
+		<category>xxx</category>
+	</rss>
+</conf>
