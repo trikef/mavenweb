@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+<project name="config-manager" default="copy" basedir=".">
+
+	<property name="app-name" value="mavenweb" />
+	<property name="WEB-INF" value="./src/main/webapp/WEB-INF" />
+	<property name="configfile" value="config.xml" />
+
+	<target name="copy">
+		<copyfile src="${user.home}/conf/${app-name}/${configfile}" dest="${WEB-INF}/${configfile}" />
+	</target>
+</project>
