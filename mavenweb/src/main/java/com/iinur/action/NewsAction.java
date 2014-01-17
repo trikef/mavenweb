@@ -11,6 +11,11 @@ import com.iinur.model.RssModel;
 import com.iinur.util.rss.document.bean.RssDocumentBean;
 import com.opensymphony.xwork2.ActionSupport;
 
+/**
+ * 
+ * @author k
+ *
+ */
 public class NewsAction extends ActionSupport {
 
 	private static final long serialVersionUID = 1L;
