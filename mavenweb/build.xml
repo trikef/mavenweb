@@ -7,5 +7,7 @@
 
 	<target name="copy">
 		<copyfile src="${user.home}/conf/${app-name}/${configfile}" dest="${WEB-INF}/${configfile}" />
+		<echo message="src:${user.home}/conf/${app-name}/${configfile}" />
+		<echo message="dest:${WEB-INF}/${configfile}" />
 	</target>
 </project>
