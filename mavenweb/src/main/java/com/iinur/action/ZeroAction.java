@@ -10,7 +10,7 @@ import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.InterceptorRef;
 import org.apache.struts2.convention.annotation.InterceptorRefs;
 
-import com.iinur.core.db.BaseDao;
+import com.iinur.core.data.BaseDao;
 import com.opensymphony.xwork2.ActionSupport;
 
 @InterceptorRefs({@InterceptorRef("timer"),
