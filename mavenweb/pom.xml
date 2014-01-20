@@ -44,6 +44,12 @@
 			<artifactId>postgresql</artifactId>
 			<version>9.3-1100-jdbc41</version>
 		</dependency>
+		<dependency>
+			<groupId>org.seleniumhq.selenium.client-drivers</groupId>
+			<artifactId>selenium-java-client-driver</artifactId>
+			<version>1.0.2</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>mavenweb</finalName>
@@ -67,6 +73,77 @@
 					<server>tomcat</server>
 					<update>true</update>
 				</configuration>
+			    <executions>
+			        <execution>
+			            <id>start-tomcat</id>
+			            <phase>pre-integration-test</phase>
+			            <goals>
+			                <goal>run-war-only</goal>
+			            </goals>
+			            <configuration>
+			                <port>9090</port>
+			                <fork>true</fork>
+			            </configuration>
+			        </execution>
+			        <!-- At post-integration-test phase, stop the embedded Tomcat server. -->
+			        <execution>
+			            <id>stop-tomcat</id>
+			            <phase>post-integration-test</phase>
+			            <goals>
+			                <goal>shutdown</goal>
+			            </goals>
+			        </execution>
+			    </executions>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>selenium-maven-plugin</artifactId>
+				<version>2.3</version>
+				<executions>
+					<execution>
+						<phase>pre-integration-test</phase>
+						<goals>
+							<goal>start-server</goal>
+						</goals>
+						<configuration>
+							<background>true</background>
+						</configuration>
+					</execution>
+					<execution>
+			            <id>stop</id>
+			            <phase>post-integration-test</phase>
+			            <goals>
+			                <goal>stop-server</goal>
+			            </goals>
+			        </execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>**/selenium/*Test.java</exclude>
+					</excludes>
+				</configuration>
+				<executions>
+					<execution>
+						<id>integration-tests</id>
+						<phase>integration-test</phase>
+						<goals>
+							<goal>test</goal>
+						</goals>
+						<configuration>
+							<skip>false</skip>
+							<excludes>
+								<exclude>none</exclude>
+							</excludes>
+							<includes>
+								<include>**/selenium/*Test.java</include>
+							</includes>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
