@@ -13,15 +13,6 @@ public class ConfigLoader {
 			// digester.push(this);
 			// 読み込みルール
 			digester.addObjectCreate("conf", Config.class);
-			digester.addObjectCreate("conf/db", DBConfig.class);
-			digester.addSetNext("conf/db", "addDBConfig");
-			digester.addSetProperties("conf/db", "no", "id");
-			digester.addSetProperties("conf/db", "view", "view");
-			digester.addBeanPropertySetter("conf/db/name", "name");
-			digester.addBeanPropertySetter("conf/db/user", "user");
-			digester.addBeanPropertySetter("conf/db/pass", "pass");
-			digester.addBeanPropertySetter("conf/db/url", "url");
-			digester.addBeanPropertySetter("conf/db/driver", "driver");
 
 			digester.addObjectCreate("conf/rss", RssConfig.class);
 			digester.addSetNext("conf/rss", "addRssConfig");

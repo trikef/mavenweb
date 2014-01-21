@@ -3,11 +3,20 @@
 
 	<property name="app-name" value="mavenweb" />
 	<property name="WEB-INF" value="./src/main/webapp/WEB-INF" />
+	<property name="META-INF" value="./src/main/webapp/META-INF" />
 	<property name="configfile" value="config.xml" />
+	<property name="contextfile" value="context.xml" />
 
-	<target name="copy">
-		<copyfile src="${user.home}/conf/${app-name}/${configfile}" dest="${WEB-INF}/${configfile}" />
+	<target name="copy" depends="copy-config,copy-context"/>
+
+	<target name="copy-config">
+		<copyfile src="${user.home}/conf/${app-name}/${configfile}" dest="${WEB-INF}/${configfile}" forceoverwrite="true" />
 		<echo message="src:${user.home}/conf/${app-name}/${configfile}" />
 		<echo message="dest:${WEB-INF}/${configfile}" />
+	</target>
+	<target name="copy-context">
+		<copyfile src="${user.home}/conf/${app-name}/${contextfile}" dest="${META-INF}/${contextfile}" forceoverwrite="true" />
+		<echo message="src:${user.home}/conf/${app-name}/${contextfile}" />
+		<echo message="dest:${META-INF}/${contextfile}" />
 	</target>
 </project>

@@ -1,16 +1,19 @@
 package com.iinur.action;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.List;
 
-import javax.servlet.ServletContext;
+import javax.sql.DataSource;
 
-import org.apache.struts2.ServletActionContext;
+import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.ResultSetHandler;
+import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.struts2.convention.annotation.InterceptorRef;
 import org.apache.struts2.convention.annotation.InterceptorRefs;
 
 import com.iinur.core.data.BaseDao;
+import com.iinur.core.data.bean.Rss;
 import com.opensymphony.xwork2.ActionSupport;
 
 @InterceptorRefs({@InterceptorRef("timer"),
@@ -33,16 +36,25 @@ public class ZeroAction extends ActionSupport {
 
         this.setReplyMsg( "これがZero Configuration" );
         
-		ServletContext sc = ServletActionContext.getServletContext();
-        Connection con = BaseDao.getConnection(sc);
-        Statement stmt = con.createStatement();
-        stmt.executeUpdate("insert into rss (blog_title, category, title, description, link, date_written) values('test_b','pad','こんにちは','鼻歌','http://test.com','2014/1/20 10:10')");
-        ResultSet rs =stmt.executeQuery("select * from rss");
-        while (rs.next()) {
-            System.out.println(rs.getString(2));
-          }
-        System.out.println("con=" + con);
-        con.close();
+        DataSource ds = BaseDao.getDataSource();
+        QueryRunner run = new QueryRunner( ds );
+        List<Rss> rsss = null;
+        try
+        {
+			int inserts = run
+					.update("insert into rss (blog_title, category, title, description, link, date_written) values(?,?,?,?,?,?)",
+							"test_c", "pad", "こんにちは", "鼻歌", "http://test.com",
+							Timestamp.valueOf("2014-01-20 10:10:01"));
+			ResultSetHandler<List<Rss>> rsh = new BeanListHandler<Rss>(Rss.class);
+			rsss = run.query("SELECT * FROM rss", rsh);
+        }
+        catch(SQLException sqle) {
+            // Handle it
+        	sqle.printStackTrace();
+        }
+        for (Rss rss : rsss) {
+			System.out.println(rss.getCreated_at());
+		}
         return "success";
     }
 }

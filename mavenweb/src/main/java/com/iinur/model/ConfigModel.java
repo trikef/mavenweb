@@ -7,7 +7,6 @@ import javax.servlet.ServletContext;
 
 import com.iinur.core.config.Config;
 import com.iinur.core.config.ConfigLoader;
-import com.iinur.core.config.DBConfig;
 import com.iinur.core.config.RssConfig;
 
 public class ConfigModel {
@@ -38,10 +37,5 @@ public class ConfigModel {
 	public static List<RssConfig> getRssConfigList(ServletContext context) {
 
 		return getInstance(context).conf.getRssList();
-	}
-
-	public static List<DBConfig> getDBConfigList(ServletContext context) {
-
-		return getInstance(context).conf.getDBList();
 	}
 }

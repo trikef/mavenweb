@@ -1,3 +1,4 @@
 /target
 /Users
 /src/main/webapp/WEB-INF/config.xml
+/src/main/webapp/META-INF/context.xml

@@ -1,35 +1,23 @@
 package com.iinur.core.data;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.util.List;
-
-import javax.servlet.ServletContext;
-
-import com.iinur.core.config.DBConfig;
-import com.iinur.model.ConfigModel;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 
 public class BaseDao {
-	
-	private static DBConfig conf;
-	
-    public static Connection getConnection(ServletContext sc) {
-        Connection con = null;
-        List<DBConfig> list = ConfigModel.getDBConfigList(sc);
-        for (DBConfig c : list) {
-			if("main".equals(c.getName())){
-				conf = c;
-			}
-		}
+
+    public static DataSource getDataSource() {
+    	DataSource ds = null;
+
         try {
-            Class.forName(conf.getDriver());
-            con = DriverManager.getConnection(conf.getUrl(),conf.getUser(),conf.getPass());
-        } catch (ClassNotFoundException e) {
+            Context initContext = new InitialContext();
+            ds = (DataSource)initContext.lookup("java:comp/env/jdbc/postgresql");
+
+        } catch (NamingException e) {
             e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
-        return con;
+        return ds;
     }
 }
