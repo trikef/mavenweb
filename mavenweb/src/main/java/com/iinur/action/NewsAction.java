@@ -1,5 +1,7 @@
 package com.iinur.action;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -24,7 +26,7 @@ public class NewsAction extends ActionSupport {
 	//category
     public String c1;
     public String c2;
-    public String d;
+    public String d = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
 
     public List<Rss> getRsss() {
 		return rsss;
