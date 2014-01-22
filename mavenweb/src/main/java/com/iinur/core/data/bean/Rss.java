@@ -5,8 +5,9 @@ import java.sql.Timestamp;
 public class Rss {
 	private int id;
     private String blog_title;
-    private String category;
-    private String title;
+	private String category1;
+	private String category2;
+	private String title;
     private String description;
     private String link;
     private Timestamp date_written;
@@ -23,11 +24,17 @@ public class Rss {
 	public void setBlog_title(String blog_title) {
 		this.blog_title = blog_title;
 	}
-	public String getCategory() {
-		return category;
+	public String getCategory1() {
+		return category1;
 	}
-	public void setCategory(String category) {
-		this.category = category;
+	public void setCategory1(String category1) {
+		this.category1 = category1;
+	}
+	public String getCategory2() {
+		return category2;
+	}
+	public void setCategory2(String category2) {
+		this.category2 = category2;
 	}
 	public String getTitle() {
 		return title;

@@ -1,5 +1,6 @@
 package com.iinur.util.rss.document;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,8 +55,8 @@ public class W3CBasicRssDocument implements RssDocument {
 				bean.setDescription(item_description.item(0).getFirstChild().getNodeValue());
 			}
 			bean.setLink(item_link.item(0).getFirstChild().getNodeValue());
-			bean.setDate(DateParser.parseW3CDateTime(item_date.item(0)
-					.getFirstChild().getNodeValue()));
+			bean.setDate(new Timestamp(DateParser.parseW3CDateTime(item_date.item(0)
+					.getFirstChild().getNodeValue()).getTime()));
 
 			list.add(bean);
 		}

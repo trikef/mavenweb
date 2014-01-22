@@ -4,6 +4,7 @@
 		<name>xxx</name>
 		<url>http://xxx.rdf</url>
 		<type>W3CBasic</type>
-		<category>xxx</category>
+		<category1>xxx</category1>
+		<category2>xxx</category2>
 	</rss>
 </conf>

@@ -3,14 +3,13 @@
 <%@taglib uri="/struts-tags" prefix="s"%>
 
 <table>
-	<s:iterator value="rssList">
+	<s:iterator value="rsss">
 		<tr>
-			<td><s:date name="date" format="MM/DD HH:mm"/></td>
+			<td><s:date name="date_written" format="MM/DD HH:mm" /></td>
 			<td><a href="<s:property value="link" />"
-				title="<s:property value="description" />"
-				target="blank"><s:property
+				title="<s:property value="description" />" target="blank"><s:property
 						value="title" /></a></td>
-			<td><s:property value="blogTitle" /></td>
+			<td><s:property value="blog_title" /></td>
 		</tr>
 	</s:iterator>
 </table>

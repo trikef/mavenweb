@@ -21,7 +21,8 @@ public class ConfigLoader {
 			digester.addBeanPropertySetter("conf/rss/name", "name");
 			digester.addBeanPropertySetter("conf/rss/url", "url");
 			digester.addBeanPropertySetter("conf/rss/type", "type");
-			digester.addBeanPropertySetter("conf/rss/category", "category");
+			digester.addBeanPropertySetter("conf/rss/category1", "category1");
+			digester.addBeanPropertySetter("conf/rss/category2", "category2");
 			
 			return (Config) digester.parse(configfile);
 

@@ -1,12 +1,12 @@
 package com.iinur.util.rss.document.bean;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 public class RssDocumentBean {
 
 	private String blogTitle = null;
 	private String title = null;
-	private Date date = null;
+	private Timestamp date = null;
 	private String description = null;
 	private String link = null;
 	
@@ -22,10 +22,10 @@ public class RssDocumentBean {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public Date getDate() {
+	public Timestamp getDate() {
 		return date;
 	}
-	public void setDate(Date date) {
+	public void setDate(Timestamp date) {
 		this.date = date;
 	}
 	public String getDescription() {
