@@ -1,6 +1,5 @@
 package com.iinur.timer;
 
-import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -8,10 +7,14 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.iinur.crawler.RssCrawler;
 
 public class RssCrawlerTimerListener implements ServletContextListener {
 
+	private static final Logger log = LoggerFactory.getLogger(RssCrawlerTimerListener.class);
 	// タイマーの起動時間：24:00
 	// private static final int HOUR = 24;
 	// private static final int MINUTE = 0;
@@ -20,13 +23,13 @@ public class RssCrawlerTimerListener implements ServletContextListener {
 
 	public void contextDestroyed(ServletContextEvent event) {
 		timer.cancel();
-		event.getServletContext().log("Timer is canceled.");
+		log.debug("Timer is canceled.");
 	}
 
 	public void contextInitialized(ServletContextEvent event) {
 		// コンテキストを初期化時
 		timer = new Timer(true);
-		event.getServletContext().log("Timer is started.");
+		log.debug("Timer is started.");
 		// Calendar calendar = Calendar.getInstance();
 		// calendar.set(Calendar.HOUR_OF_DAY, HOUR);
 		// calendar.set(Calendar.MINUTE, MINUTE);
@@ -44,23 +47,27 @@ public class RssCrawlerTimerListener implements ServletContextListener {
 
 class RssCrawlerTimerTask extends TimerTask {
 
+	private static final Logger log = LoggerFactory.getLogger(RssCrawlerTimerTask.class);
+
 	private RssCrawler crawler;
-	private ServletContext sc;
 
 	private RssCrawlerTimerTask() {
 	}
 
 	public RssCrawlerTimerTask(ServletContext sc) {
-		this.sc = sc;
 		this.crawler = new RssCrawler(sc);
 	}
 
 	@Override
 	public void run() {
-		sc.log("crawler is started.");
-		crawler.crawl();
-		sc.log(Calendar.getInstance().getTime().toString());
-		sc.log("crawler is end.");
+		log.debug("crawler is started.");
+		try{
+			crawler.crawl();
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error(e.getMessage());
+		}
+		log.debug("crawler is end.");
 	}
 
 }
