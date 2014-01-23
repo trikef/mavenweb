@@ -65,6 +65,11 @@ public class RssModel {
         RssDao dao = new RssDao();
         return dao.getWhereDay(category1, category2, day);
 	}
+	
+	public List<Rss> search(String query){
+		RssDao dao = new RssDao();
+        return dao.search(query);
+	}
 
 	public int registration(Rss rss){
 		int exists;

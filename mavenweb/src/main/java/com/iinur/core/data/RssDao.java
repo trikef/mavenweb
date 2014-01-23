@@ -54,6 +54,24 @@ public class RssDao {
 		return rsss;
 	}
 
+	public List<Rss> search(String query){
+		List<Rss> rsss = null;
+		try {
+			ResultSetHandler<List<Rss>> rsh = new BeanListHandler<Rss>(
+					Rss.class);
+			rsss = run.query(		 "SELECT"
+									+ " *, ts_rank(to_tsvector('japanese', title) ,to_tsquery('japanese', ?)) as rank"
+									+ " FROM rss"
+									+ " WHERE to_tsvector('japanese', title) @@ to_tsquery('japanese', ?)"
+									+ " ORDER BY rank DESC"
+									, rsh, query, query);
+		} catch (SQLException sqle) {
+			sqle.printStackTrace();
+			throw new RuntimeException(sqle.toString());
+		}
+		return rsss;
+	}
+
 	public int insert(String blog_title, String category1, String category2, String title,
 			String description, String link, Timestamp date_written) {
 		int inserts;

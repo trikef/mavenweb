@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.ServletContext;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.struts2.ServletActionContext;
 
 import com.iinur.core.data.bean.Rss;
@@ -28,6 +29,8 @@ public class NewsAction extends ActionSupport {
     public String c2;
     public String d = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
 
+    public String q;
+
     public List<Rss> getRsss() {
 		return rsss;
 	}
@@ -41,7 +44,11 @@ public class NewsAction extends ActionSupport {
 		ServletContext sc = ServletActionContext.getServletContext();
 
         RssModel model = new RssModel(sc);
-        this.setRsss(model.get(c1, c2, d));
+        if(!StringUtils.isEmpty(q)){
+        	this.setRsss(model.search(q));
+        } else {
+        	this.setRsss(model.get(c1, c2, d));
+        }
 
 		return "success";
 	}
