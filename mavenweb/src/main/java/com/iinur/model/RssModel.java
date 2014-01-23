@@ -1,14 +1,11 @@
 package com.iinur.model;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletContext;
-
-import org.apache.commons.lang3.StringUtils;
 
 import com.iinur.core.config.RssConfig;
 import com.iinur.core.data.RssDao;
@@ -24,46 +21,27 @@ public class RssModel {
 	private RssModel(){};
 
 	public RssModel(ServletContext sc){
-		rssUrlList = ConfigModel.getRssConfigList(sc);
+		setRssUrlList(ConfigModel.getRssConfigList(sc));
 	}
-	
+
+	public List<RssConfig> getRssUrlList() {
+		return rssUrlList;
+	}
+
+	public void setRssUrlList(List<RssConfig> rssUrlList) {
+		this.rssUrlList = rssUrlList;
+	}
+
 	public List<Rss> get(String category1, String category2, String day){
-
-		List<Rss> list = new ArrayList<Rss>();
-		for (RssConfig conf : rssUrlList) {
-			if("off".equals(conf.getView())){
-				continue;
-			} else if(StringUtils.isEmpty(category1)){//all
-				list.addAll(convert(getRss(conf), conf));
-			} else if(StringUtils.equals(category1, conf.getCategory1())
-					&& StringUtils.isEmpty(category2)
-					){
-				list.addAll(convert(getRss(conf), conf));
-			} else if(StringUtils.equals(category1, conf.getCategory1())
-					&& StringUtils.equals(category2, conf.getCategory2())){
-				list.addAll(convert(getRss(conf), conf));
-			}
-		}
-		Collections.sort(list, new DateComparator(DateComparator.DESC));
-
-		for (Rss rss : list) {
-			registration(rss);
-		}
-		
-		return getRssWhereDay(category1, category2, day);
+        RssDao dao = new RssDao();
+        return dao.getWhereDay(category1, category2, day);
 	}
-	
-	public List<RssDocumentBean> getRss(RssConfig conf){
-		
+
+	public List<RssDocumentBean> getRssHttp(RssConfig conf){
 		RssFactory rf = new RssFactory();
 		RssDocument rd = rf.getRssDocument(conf);
 		
 		return rd.getBeanList();
-	}
-	
-	public List<Rss> getRssWhereDay(String category1, String category2, String day){
-        RssDao dao = new RssDao();
-        return dao.getWhereDay(category1, category2, day);
 	}
 	
 	public List<Rss> search(String query){
