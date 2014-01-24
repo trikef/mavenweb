@@ -10,10 +10,14 @@ import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.iinur.core.data.bean.Rss;
 
 public class RssDao {
+
+	private static final Logger log = LoggerFactory.getLogger(RssDao.class);
 
 	private QueryRunner run = null;
 
@@ -59,12 +63,14 @@ public class RssDao {
 		try {
 			ResultSetHandler<List<Rss>> rsh = new BeanListHandler<Rss>(
 					Rss.class);
-			rsss = run.query(		 "SELECT"
-									+ " *, ts_rank(to_tsvector('japanese', title) ,to_tsquery('japanese', ?)) as rank"
-									+ " FROM rss"
-									+ " WHERE to_tsvector('japanese', title) @@ to_tsquery('japanese', ?)"
-									+ " ORDER BY rank DESC"
-									, rsh, query, query);
+			String sql =  "SELECT"
+					+ " *, ts_rank(to_tsvector('japanese', title) ,to_tsquery('japanese', ?)) as rank"
+					+ " FROM rss"
+					+ " WHERE to_tsvector('japanese', title) @@ to_tsquery('japanese', ?)"
+					+ " ORDER BY rank DESC";
+
+			log.debug("sql:" + sql + "//query:" + query);
+			rsss = run.query(sql, rsh, query, query);
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();
 			throw new RuntimeException(sqle.toString());
