@@ -16,6 +16,7 @@ BEGIN
 			INSERT INTO tags_analyze(word,maintype,subtype1,subtype2,url)
 			SELECT word,type,subtype1,subtype2,rec_nowdata.link FROM ja_analyze(rec_nowdata.title)
 			WHERE length(word) >1
+				AND type = '名詞'
 				AND subtype1 in('固有名詞','一般');
 				--select word,count(*) from tags_analyze group by word order by count(*) desc;
 	END LOOP;

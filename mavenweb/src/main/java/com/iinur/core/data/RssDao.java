@@ -72,6 +72,16 @@ public class RssDao {
 
 			log.debug("sql:" + sql + "//query:" + query);
 			rsss = run.query(sql, rsh, query, query);
+			if(rsss.size() == 0){
+				sql =  "SELECT"
+						+ " *, ts_rank(to_tsvector('japanese', title) ,to_tsquery('japanese', ?)) as rank"
+						+ " FROM rss"
+						+ " WHERE to_tsvector('japanese', title) @@ ?::tsquery"
+						+ " ORDER BY rank DESC";
+
+				log.debug("sql:" + sql + "//query:" + query);
+				rsss = run.query(sql, rsh, query, query);
+			}
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();
 			throw new RuntimeException(sqle.toString());

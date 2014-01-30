@@ -15,7 +15,7 @@
 </script>
 </head>
 <body>
-<h1>news</h1>
+<h1><a href="./">news</a></h1>
 <table>
 	<s:iterator value="rsss">
 		<tr>
