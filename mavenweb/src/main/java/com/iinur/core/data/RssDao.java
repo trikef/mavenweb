@@ -9,6 +9,7 @@ import javax.sql.DataSource;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
+import org.apache.commons.dbutils.handlers.ScalarHandler;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -91,5 +92,18 @@ public class RssDao {
 			throw new RuntimeException(sqle.toString());
 		}
 		return inserts;
+	}
+	
+	public void batch_update_tags(){
+		ResultSetHandler<Long> rsh = new ScalarHandler<Long>();
+		String sql = "SELECT update_tags()";
+		//long inserts = 0;
+		try {
+			run.query(sql,rsh);
+		} catch (SQLException sqle) {
+			sqle.printStackTrace();
+			throw new RuntimeException(sqle.toString());
+		}
+		//return inserts;
 	}
 }

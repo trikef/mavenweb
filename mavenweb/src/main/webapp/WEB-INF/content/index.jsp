@@ -27,5 +27,14 @@
 		</tr>
 	</s:iterator>
 </table>
+<h2>hot words</h2>
+<table>
+	<s:iterator value="tags">
+		<tr>
+			<td><a href="?q=<s:property value="word" />">
+			<s:property value="word" /></a></td>
+		</tr>
+	</s:iterator>
+</table>
 </body>
 </html>

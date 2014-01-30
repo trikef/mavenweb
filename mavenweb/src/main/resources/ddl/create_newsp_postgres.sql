@@ -13,3 +13,14 @@ CREATE TABLE rss(
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY(id)
 );
+
+DROP TABLE IF EXISTS tags_analyze;
+CREATE TABLE tags_analyze(
+	id SERIAL,
+	word VARCHAR(200) NOT NULL,
+	maintype VARCHAR(50) NOT NULL,
+	subtype1 VARCHAR(50),
+	subtype2 VARCHAR(50),
+	url VARCHAR(500) NOT NULL,
+	PRIMARY KEY(id)
+);

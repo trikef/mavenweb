@@ -10,7 +10,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.struts2.ServletActionContext;
 
 import com.iinur.core.data.bean.Rss;
+import com.iinur.core.data.bean.Tag;
 import com.iinur.model.RssModel;
+import com.iinur.model.TagModel;
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
@@ -23,6 +25,7 @@ public class IndexAction extends ActionSupport {
 	private static final long serialVersionUID = 1L;
 
     private List<Rss> rsss;
+    private List<Tag> tags;
 
 	//category
     public String c1;
@@ -39,6 +42,14 @@ public class IndexAction extends ActionSupport {
 		this.rsss = rsss;
 	}
 
+	public List<Tag> getTags() {
+		return tags;
+	}
+
+	public void setTags(List<Tag> tags) {
+		this.tags = tags;
+	}
+
 	public String execute() {
 
 		ServletContext sc = ServletActionContext.getServletContext();
@@ -49,6 +60,9 @@ public class IndexAction extends ActionSupport {
         } else {
         	this.setRsss(model.get(c1, c2, d));
         }
+        
+        TagModel tagm = new TagModel();
+        this.setTags(tagm.getTags());
 
 		return "success";
 	}
