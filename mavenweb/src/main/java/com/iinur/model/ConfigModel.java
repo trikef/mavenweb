@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.ServletContext;
 
+import com.iinur.core.config.AppConfig;
 import com.iinur.core.config.Config;
 import com.iinur.core.config.ConfigLoader;
 import com.iinur.core.config.RssConfig;
@@ -37,5 +38,9 @@ public class ConfigModel {
 	public static List<RssConfig> getRssConfigList(ServletContext context) {
 
 		return getInstance(context).conf.getRssList();
+	}
+	
+	public static AppConfig getAppConfig(ServletContext context){
+		return getInstance(context).conf.getAppConfig();
 	}
 }

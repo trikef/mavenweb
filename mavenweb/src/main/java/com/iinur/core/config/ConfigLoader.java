@@ -14,6 +14,10 @@ public class ConfigLoader {
 			// 読み込みルール
 			digester.addObjectCreate("conf", Config.class);
 
+			digester.addObjectCreate("conf/app", AppConfig.class);
+			digester.addSetNext("conf/app", "setAppConfig");
+			digester.addBeanPropertySetter("conf/app/url", "url");
+			
 			digester.addObjectCreate("conf/rss", RssConfig.class);
 			digester.addSetNext("conf/rss", "addRssConfig");
 			digester.addSetProperties("conf/rss", "no", "id");

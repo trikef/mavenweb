@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <conf>
+	<app>
+		<url>http://xxx</url>
+	</app>
 	<rss no="1" view="on">
 		<name>xxx</name>
 		<url>http://xxx.rdf</url>
