@@ -4,9 +4,18 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>newsp<s:if test="!q.isEmpty()">|<s:property value="q"/>の記事一覧</s:if></title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="">
-<meta name="author" content="">
+<meta name="description" content="2chやブログ、気になる面白いニュースの最新記事一覧を提供">
+
+<meta property="og:type" content="blog" />
+<meta property="og:title" content="newsp<s:if test="!q.isEmpty()">|<s:property value="q"/>の記事一覧</s:if>" />
+<meta property="og:description" content="2chやブログ、気になる面白いニュースの最新記事一覧を提供" />
+<meta property="og:url" content="http://newsp.iinur.com/" />
+<meta property="og:image" content="" />
+<meta property="og:site_name" content="newsp" />
+<meta property="og:locale" content="ja_JP" />
+
 <!-- Le styles -->
 <link href="/css/bootstrap.css" rel="stylesheet">
 <style>
@@ -77,6 +86,7 @@ body {
 				</table>
 			</div>
 			<div class="col-sm-8">
+				<s:if test="!q.isEmpty()"><h1><s:property value="q"/>の記事一覧</h1></s:if>
 				<table class="table table-striped">
 					<s:iterator value="rsss">
 						<tr>
