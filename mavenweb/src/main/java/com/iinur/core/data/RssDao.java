@@ -68,7 +68,7 @@ public class RssDao {
 					+ " *, ts_rank(to_tsvector('japanese', title) ,to_tsquery('japanese', ?)) as rank"
 					+ " FROM rss"
 					+ " WHERE to_tsvector('japanese', title) @@ to_tsquery('japanese', ?)"
-					+ " ORDER BY rank DESC";
+					+ " ORDER BY date_written DESC";
 
 			log.debug("sql:" + sql + "//query:" + query);
 			rsss = run.query(sql, rsh, query, query);
@@ -77,7 +77,7 @@ public class RssDao {
 						+ " *, ts_rank(to_tsvector('japanese', title) ,to_tsquery('japanese', ?)) as rank"
 						+ " FROM rss"
 						+ " WHERE to_tsvector('japanese', title) @@ ?::tsquery"
-						+ " ORDER BY rank DESC";
+						+ " ORDER BY date_written DESC";
 
 				log.debug("sql:" + sql + "//query:" + query);
 				rsss = run.query(sql, rsh, query, query);
