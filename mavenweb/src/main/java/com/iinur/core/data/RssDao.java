@@ -46,11 +46,11 @@ public class RssDao {
 			ResultSetHandler<List<Rss>> rsh = new BeanListHandler<Rss>(
 					Rss.class);
 			if(StringUtils.isEmpty(category1)){
-				rsss = run.query("SELECT * FROM rss where to_char(date_written, 'yyyy-mm-dd')=? ORDER BY date_written DESC", rsh, day);//yyyy-mm-dd
+				rsss = run.query("SELECT * FROM rss where date_written > to_date(?,'YYYY-MM-DD')-1 ORDER BY date_written DESC", rsh, day);//yyyy-mm-dd
 			} else if(StringUtils.isEmpty(category2)){
-				rsss = run.query("SELECT * FROM rss where category1=? and to_char(date_written, 'yyyy-mm-dd')=? ORDER BY date_written DESC", rsh, category1, day);//yyyy-mm-dd
+				rsss = run.query("SELECT * FROM rss where category1=? and date_written > to_date(?,'YYYY-MM-DD')-1 ORDER BY date_written DESC", rsh, category1, day);//yyyy-mm-dd
 			} else {
-				rsss = run.query("SELECT * FROM rss where category1=? and category2=? and to_char(date_written, 'yyyy-mm-dd')=? ORDER BY date_written DESC", rsh, category1, category2, day);//yyyy-mm-dd
+				rsss = run.query("SELECT * FROM rss where category1=? and category2=? and date_written > to_date(?,'YYYY-MM-DD')-1 ORDER BY date_written DESC", rsh, category1, category2, day);//yyyy-mm-dd
 			}
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();

@@ -53,6 +53,8 @@ body {
 					<li><a href="./?c1=2ch">2ch</a></li>
 					<li><a href="./?c1=game&c2=ff14">FF14</a></li>
 					<li><a href="./?c1=game&c2=pad">ƒpƒYƒhƒ‰</a></li>
+					<li><a href="./?c1=it">IT</a></li>
+					<li><a href="./?c1=life">Lifehack</a></li>
 				</ul>
 			</div>
 			<!--/.nav-collapse -->
