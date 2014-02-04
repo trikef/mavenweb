@@ -2,7 +2,10 @@ package com.iinur.util.rss.document;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -10,9 +13,8 @@ import org.w3c.dom.NodeList;
 
 import com.iinur.util.rss.document.bean.RssDocumentBean;
 import com.iinur.util.rss.document.impl.RssDocument;
-import com.sun.syndication.io.impl.DateParser;
 
-public class W3CBasicRssDocument implements RssDocument {
+public class PubDateTypeRssDocument implements RssDocument {
 
 	private List<RssDocumentBean> beanList = null;
 
@@ -38,25 +40,31 @@ public class W3CBasicRssDocument implements RssDocument {
 
 			// title を取得する
 			NodeList item_title = element.getElementsByTagName("title");
+			String itile = item_title.item(0).getFirstChild().getNodeValue();
+			if(isPR(itile)){
+				continue;
+			}
 			// description を取得する
-			NodeList item_description = element
-					.getElementsByTagName("description");
+			//NodeList item_description = element
+			//		.getElementsByTagName("description");
 			// link を取得する
 			NodeList item_link = element.getElementsByTagName("link");
 
 			// date を取得する
-			NodeList item_date = element.getElementsByTagName("dc:date");
-			NodeList item_content = element.getElementsByTagName("content:encoded");
+			NodeList item_date = element.getElementsByTagName("pubDate");
+			
+			NodeList item_content = element.getElementsByTagName("description");
 
 			RssDocumentBean bean = new RssDocumentBean();
 			bean.setBlogTitle(title.item(0).getFirstChild().getNodeValue());
-			bean.setTitle(item_title.item(0).getFirstChild().getNodeValue());
-			
+			bean.setTitle(itile);
+			/*
 			if(item_description.item(0).getFirstChild() != null){
 				bean.setDescription(item_description.item(0).getFirstChild().getNodeValue());
 			}
+			*/
 			bean.setLink(item_link.item(0).getFirstChild().getNodeValue());
-			bean.setDate(new Timestamp(DateParser.parseW3CDateTime(item_date.item(0)
+			bean.setDate(new Timestamp(new Date(item_date.item(0)
 					.getFirstChild().getNodeValue()).getTime()));
 			bean.setContent(item_content.item(0).getFirstChild().getNodeValue());
 
@@ -71,7 +79,13 @@ public class W3CBasicRssDocument implements RssDocument {
 
 	public void setBeanList(List<RssDocumentBean> beanList) {
 		this.beanList = beanList;
+	}
+	
+	public boolean isPR(String title){
+		Pattern ptn = Pattern.compile("^PR:", Pattern.DOTALL);
+		Matcher matcher = ptn.matcher(title);
 
+		return matcher.find();
 	}
 
 }

@@ -9,6 +9,7 @@ public class RssDocumentBean {
 	private Timestamp date = null;
 	private String description = null;
 	private String link = null;
+	private String content = null;
 	
 	public String getBlogTitle() {
 		return blogTitle;
@@ -39,6 +40,12 @@ public class RssDocumentBean {
 	}
 	public void setLink(String link) {
 		this.link = link;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
 	}
 	
 }

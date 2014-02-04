@@ -9,6 +9,8 @@ CREATE TABLE rss(
     title VARCHAR(255) NOT NULL,
     description TEXT,
     link VARCHAR(255) NOT NULL,
+    content TEXT,
+    img_url VARCHAR(255),
     date_written TIMESTAMP NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY(id)

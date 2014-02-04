@@ -4,8 +4,13 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.ServletContext;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.iinur.core.config.RssConfig;
 import com.iinur.core.data.RssDao;
@@ -16,6 +21,8 @@ import com.iinur.util.rss.document.impl.RssDocument;
 
 public class RssModel {
 	
+	private static final Logger log = LoggerFactory.getLogger(RssModel.class);
+
 	private List<RssConfig> rssUrlList;
 
 	private RssModel(){};
@@ -55,7 +62,7 @@ public class RssModel {
 		exists = dao.existTitle(rss.getTitle());
 		if(exists == 0){
 			dao.insert(rss.getBlog_title(), rss.getCategory1(), rss.getCategory2(), rss.getTitle(),
-					rss.getDescription(), rss.getLink(), rss.getDate_written());
+					rss.getDescription(), rss.getLink(), rss.getDate_written(), rss.getContent(), rss.getImg_url());
 		}
 		return exists;
 	}
@@ -71,10 +78,24 @@ public class RssModel {
 			r.setDescription(bean.getDescription());
 			r.setLink(bean.getLink());
 			r.setDate_written(bean.getDate());
+			r.setContent(bean.getContent());
+			r.setImg_url(getImgUrl(bean.getContent()));
 			
 			list.add(r);
 		}
 		return list;
+	}
+	
+	public String getImgUrl(String xml){
+		String imgUrl = null;
+		Pattern ptn = Pattern.compile("<img.*?src=\"(.*?.(jpg|jpeg|png|gif))\".*?>", Pattern.DOTALL);
+
+		Matcher matcher = ptn.matcher(xml);
+
+		if (matcher.find()) {
+			imgUrl = matcher.group(1).replaceAll("¥¥s", "");
+		}
+		return imgUrl;
 	}
 }
 

@@ -17,7 +17,7 @@
 <meta property="og:locale" content="ja_JP" />
 
 <!-- Le styles -->
-<link href="/css/bootstrap.css" rel="stylesheet">
+<link href="/css/main.css" rel="stylesheet">
 <style>
 body {
 	padding-top: 60px;
@@ -60,14 +60,14 @@ body {
 	</div>
 	<div class="container">
 		<div class="row">
-			<div class="col-sm-3">
+			<div class="col-md-2">
 				<form action="" method="get">
 					<div class="row">
-						<div class="col-lg-8">
+						<div class="col-xs-12">
 							<div class="input-group">
 								<input type="text" class="form-control" name="q"> <span
 									class="input-group-btn">
-									<button class="btn btn-default" type="submit">Go!</button>
+									<button class="btn btn-default" type="submit">åüçı</button>
 								</span>
 							</div>
 							<!-- /input-group -->
@@ -76,26 +76,36 @@ body {
 					</div>
 					<!-- /.row -->
 				</form>
-				<table>
-					<s:iterator value="tags">
-						<tr>
-							<td><a href="?q=<s:property value="word" />"> <s:property
-										value="word" /></a></td>
-						</tr>
-					</s:iterator>
-				</table>
+				<div class="row">
+					<div class="col-xs-12">
+						<ul class="tags">
+						<s:iterator value="tags">
+							<li><a href="?q=<s:property value="word" />"> <s:property value="word" /></a></li>
+						</s:iterator>
+						</ul>
+					</div>
+				</div>
 			</div>
-			<div class="col-sm-8">
+			<div class="col-md-10">
 				<s:if test="!q.isEmpty()"><h1><s:property value="q"/>ÇÃãLéñàÍóó</h1></s:if>
 				<table class="table table-striped">
 					<s:iterator value="rsss">
-						<tr>
-							<td><s:date name="date_written" format="MM/dd HH:mm" /></td>
-							<td><a href="<s:property value="link" />"
-								title="<s:property value="description" />" target="blank"><s:property
-										value="title" /></a></td>
-							<td><s:property value="blog_title" /></td>
-						</tr>
+					<tr>
+						<td class="td-small">
+							<s:if test="!img_url.isEmpty()"><a href="<s:property value="link" />" title="<s:property value="description" />" target="blank">
+							<nowrap><img src="<s:property escape="false" value="img_url" />" class="img-thumbnail img-small" /></nowrap>
+							</a></s:if>
+						</td>
+						<td>
+							<a href="<s:property value="link" />" title="<s:property value="description" />" target="blank">
+								<s:property value="title" />
+							</a>
+							<span class="text-light"><s:property value="blog_title" /></span>
+							<p class="text-right text-light">
+								<small class="text-light"><s:date name="date_written" format="MM/dd HH:mm" /></small>
+							</p>
+						</td>
+					</tr>
 					</s:iterator>
 				</table>
 			</div>

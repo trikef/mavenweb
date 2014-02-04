@@ -27,7 +27,7 @@ public class SeleniumHelloWorldExampleTest extends TestCase {
 
 	public void testHelloWorld() throws Exception {
 		try {
-			selenium.open("http://localhost:9090/mavenweb/news");
+			selenium.open("http://localhost:9090/mavenweb/");
 			assertEquals("news", selenium.getText("//h1"));
 		} catch (SeleniumException ex) {
 			fail(ex.getMessage());

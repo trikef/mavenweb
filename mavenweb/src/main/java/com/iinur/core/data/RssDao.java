@@ -90,13 +90,13 @@ public class RssDao {
 	}
 
 	public int insert(String blog_title, String category1, String category2, String title,
-			String description, String link, Timestamp date_written) {
+			String description, String link, Timestamp date_written, String content, String img_url) {
 		int inserts;
 		try {
 			inserts = run
-					.update("insert into rss (blog_title, category1, category2, title, description, link, date_written) values(?,?,?,?,?,?,?)",
+					.update("insert into rss (blog_title, category1, category2, title, description, link, date_written, content, img_url) values(?,?,?,?,?,?,?,?,?)",
 							blog_title, category1, category2, title, description, link,
-							date_written);
+							date_written, content, img_url);
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();
 			throw new RuntimeException(sqle.toString());

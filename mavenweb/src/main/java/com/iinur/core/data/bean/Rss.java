@@ -12,6 +12,9 @@ public class Rss {
     private String link;
     private Timestamp date_written;
     private Timestamp created_at;
+    private String content;
+    private String img_url;
+
 	public int getId() {
 		return id;
 	}
@@ -65,5 +68,17 @@ public class Rss {
 	}
 	public void setCreated_at(Timestamp created_at) {
 		this.created_at = created_at;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
+	public String getImg_url() {
+		return img_url;
+	}
+	public void setImg_url(String img_url) {
+		this.img_url = img_url;
 	}
 }
