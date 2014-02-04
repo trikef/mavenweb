@@ -20,6 +20,16 @@
   <priority>0.8</priority>
   <changefreq>always</changefreq>
 </url>
+<url>
+  <loc><s:property value="url" />/?c1=it</loc>
+  <priority>0.8</priority>
+  <changefreq>always</changefreq>
+</url>
+<url>
+  <loc><s:property value="url" />/?c1=life</loc>
+  <priority>0.8</priority>
+  <changefreq>always</changefreq>
+</url>
 <s:iterator value="tags"><url>
   <loc><s:url value="%{url}" ><s:param name="q" value="%{word}" /></s:url></loc>
   <priority>0.7</priority>
