@@ -63,7 +63,7 @@ body {
 	<div class="container">
 		<div class="row">
 			<div class="col-md-2">
-				<form action="" method="get">
+				<form action="/" method="get">
 					<div class="row">
 						<div class="col-xs-12">
 							<div class="input-group">
