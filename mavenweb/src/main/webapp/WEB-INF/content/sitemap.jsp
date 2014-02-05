@@ -6,7 +6,7 @@
   <changefreq>always</changefreq>
 </url>
 <url>
-  <loc><s:property value="url" />/2‚¿‚á‚ñ‚Ë‚é/category/2ch</loc>
+  <loc><s:property value="url" />/2%e3%81%a1%e3%82%83%e3%82%93%e3%81%ad%e3%82%8b/category/2ch</loc>
   <priority>0.8</priority>
   <changefreq>always</changefreq>
 </url>
@@ -16,7 +16,7 @@
   <changefreq>always</changefreq>
 </url>
 <url>
-  <loc><s:property value="url" />/ƒpƒYƒhƒ‰/category2/game/pad</loc>
+  <loc><s:property value="url" />/%e3%83%91%e3%82%ba%e3%83%89%e3%83%a9/category2/game/pad</loc>
   <priority>0.8</priority>
   <changefreq>always</changefreq>
 </url>
@@ -31,7 +31,7 @@
   <changefreq>always</changefreq>
 </url>
 <s:iterator value="tags"><url>
-  <loc><s:url value="%{url}" />/<s:property value="word" />/tag</loc>
+  <loc><s:url value="%{url}" />/<s:property value="eword" />/tag</loc>
   <priority>0.7</priority>
   <changefreq>always</changefreq>
 </url>
