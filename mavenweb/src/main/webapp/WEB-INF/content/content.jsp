@@ -101,18 +101,16 @@ body {
 							<nowrap><img src="<s:property escape="false" value="rss.img_url" />" class="img-thumbnail img-small" /></nowrap>
 							</a></s:if>
 						</td>
-						<td>
+						<td class="content-resize-col-1">
 							<a href="<s:property value="rss.link" />" title="<s:property value="rss.description" />" target="blank">
 								<s:property value="rss.description" />
 							</a>
 							<span class="text-light"><s:property value="rss.blog_title" /></span>
-							<p class="text-right text-light">
-								<small class="text-light"><s:date name="rss.date_written" format="MM/dd HH:mm" /></small>
-							</p>
+							<p class="text-right"><small class="text-light"><s:date name="rss.date_written" format="MM/dd HH:mm" /></small></p>
 						</td>
 					</tr>
 					<tr>
-						<td colspan="2">
+						<td class="content-resize" colspan="2">
 						<s:property escape="false" value="rss.content" />
 						</td>
 					</tr>
