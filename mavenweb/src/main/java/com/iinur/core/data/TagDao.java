@@ -31,7 +31,7 @@ public class TagDao {
 			ResultSetHandler<List<Tag>> rsh = new BeanListHandler<Tag>(Tag.class);
 			String sql =  "SELECT word,count(*) rank FROM tags_analyze GROUP BY word ORDER BY count(*) DESC LIMIT ?";
 
-			log.debug("sql:" + sql + "//limit:" + limit);
+			//log.debug("sql:" + sql + "//limit:" + limit);
 			tags = run.query(sql, rsh, limit);
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();

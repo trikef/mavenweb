@@ -45,16 +45,16 @@ body {
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="./">newsp</a>
+				<a class="navbar-brand" href="/">newsp</a>
 			</div>
 			<div class="collapse navbar-collapse">
 				<ul class="nav navbar-nav">
 					<li class="active"><a href="./">Home</a></li>
-					<li><a href="./?c1=2ch">2ch</a></li>
-					<li><a href="./?c1=game&c2=ff14">FF14</a></li>
-					<li><a href="./?c1=game&c2=pad">パズドラ</a></li>
-					<li><a href="./?c1=it">IT</a></li>
-					<li><a href="./?c1=life">Lifehack</a></li>
+					<li><a href="/2ちゃんねる/category/2ch">2ch</a></li>
+					<li><a href="/finalfantasyxiv/category2/game/ff14">FF14</a></li>
+					<li><a href="/パズドラ/category2/game/pad">パズドラ</a></li>
+					<li><a href="/it/category/it">IT</a></li>
+					<li><a href="/lifehack/category/life">Lifehack</a></li>
 				</ul>
 			</div>
 			<!--/.nav-collapse -->
@@ -82,7 +82,7 @@ body {
 					<div class="col-xs-12">
 						<ul class="tags">
 						<s:iterator value="tags">
-							<li><a href="?q=<s:property value="word" />"> <s:property value="word" /></a></li>
+							<li><a href="/<s:property value="word" />/tag"> <s:property value="word" /></a></li>
 						</s:iterator>
 						</ul>
 					</div>

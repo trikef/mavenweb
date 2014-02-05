@@ -6,32 +6,32 @@
   <changefreq>always</changefreq>
 </url>
 <url>
-  <loc><s:property value="url" />/?c1=2ch</loc>
+  <loc><s:property value="url" />/2‚¿‚á‚ñ‚Ë‚é/category/2ch</loc>
   <priority>0.8</priority>
   <changefreq>always</changefreq>
 </url>
 <url>
-  <loc><s:property value="url" />/?c1=game&amp;c2=ff14</loc>
+  <loc><s:property value="url" />/finalfantasyxiv/category2/game/ff14</loc>
   <priority>0.8</priority>
   <changefreq>always</changefreq>
 </url>
 <url>
-  <loc><s:property value="url" />/?c1=game&amp;c2=pad</loc>
+  <loc><s:property value="url" />/ƒpƒYƒhƒ‰/category2/game/pad</loc>
   <priority>0.8</priority>
   <changefreq>always</changefreq>
 </url>
 <url>
-  <loc><s:property value="url" />/?c1=it</loc>
+  <loc><s:property value="url" />/it/category/it</loc>
   <priority>0.8</priority>
   <changefreq>always</changefreq>
 </url>
 <url>
-  <loc><s:property value="url" />/?c1=life</loc>
+  <loc><s:property value="url" />/lifehack/category/life</loc>
   <priority>0.8</priority>
   <changefreq>always</changefreq>
 </url>
 <s:iterator value="tags"><url>
-  <loc><s:url value="%{url}" ><s:param name="q" value="%{word}" /></s:url></loc>
+  <loc><s:url value="%{url}" />/<s:property value="word" />/tag</loc>
   <priority>0.7</priority>
   <changefreq>always</changefreq>
 </url>
