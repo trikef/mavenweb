@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title><s:if test="!q.isEmpty()"><s:property value="q"/>の記事一覧|</s:if>newsp</title>
+<title><s:if test="!rss.title.isEmpty()"><s:property value="rss.title"/>|</s:if>newsp</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="2chやブログ、気になる面白いニュースの最新記事一覧を提供">
 
@@ -80,6 +80,7 @@ body {
 				</form>
 				<div class="row">
 					<div class="col-xs-12">
+						<h4>関連キーワード</h4>
 						<ul class="tags">
 						<s:iterator value="tags">
 							<li><a href="/<s:property value="word" />/tag"> <s:property value="word" /></a></li>
@@ -89,27 +90,32 @@ body {
 				</div>
 			</div>
 			<div class="col-md-10">
-				<s:if test="!q.isEmpty()"><h1><s:property value="q"/>の記事一覧</h1></s:if>
+				<a href="<s:property value="rss.link" />" title="<s:property value="rss.description" />" target="blank">
+					<h1><s:property value="rss.title"/></h1>
+				</a>
+				<a href="<s:property value="rss.link" />" title="<s:property value="rss.description" />" target="blank">[元の記事を読む]</a>
 				<table class="table table-striped">
-					<s:iterator value="rsss">
 					<tr>
 						<td class="td-small">
-							<s:if test="!img_url.isEmpty()"><a href="<s:property value="link" />" title="<s:property value="description" />" target="blank">
-							<nowrap><img src="<s:property escape="false" value="img_url" />" class="img-thumbnail img-small" /></nowrap>
+							<s:if test="!rss.img_url.isEmpty()"><a href="<s:property value="rss.link" />" title="<s:property value="rss.description" />" target="blank">
+							<nowrap><img src="<s:property escape="false" value="rss.img_url" />" class="img-thumbnail img-small" /></nowrap>
 							</a></s:if>
 						</td>
 						<td>
-							<a href="<s:property value="link" />" title="<s:property value="description" />" target="blank">
-								<s:property value="title" />
+							<a href="<s:property value="rss.link" />" title="<s:property value="rss.description" />" target="blank">
+								<s:property value="rss.description" />
 							</a>
-							<span class="text-light"><s:property value="blog_title" /></span>
+							<span class="text-light"><s:property value="rss.blog_title" /></span>
 							<p class="text-right text-light">
-								<a href="/<s:property value="title" />/content/<s:property value="id" />">関連キーワード</a>
-								<small class="text-light"><s:date name="date_written" format="MM/dd HH:mm" /></small>
+								<small class="text-light"><s:date name="rss.date_written" format="MM/dd HH:mm" /></small>
 							</p>
 						</td>
 					</tr>
-					</s:iterator>
+					<tr>
+						<td colspan="2">
+						<s:property escape="false" value="rss.content" />
+						</td>
+					</tr>
 				</table>
 			</div>
 		</div>

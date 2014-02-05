@@ -18,5 +18,8 @@
 	    <action name="/{*}/category2/{c1:.+}/{c2:.+}" class="com.iinur.action.IndexAction">
 			<result>/WEB-INF/content/index.jsp</result>
 	    </action>
+	    <action name="/{title:.*}/content/{id:.+}" class="com.iinur.action.ContentAction">
+			<result>/WEB-INF/content/content.jsp</result>
+	    </action>
     </package>
 </struts>

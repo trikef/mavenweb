@@ -39,6 +39,11 @@ public class RssModel {
 		this.rssUrlList = rssUrlList;
 	}
 
+	public Rss get(int id){
+		RssDao dao = new RssDao();
+		return dao.getFromId(id);
+	}
+
 	public List<Rss> get(String category1, String category2, String day){
         RssDao dao = new RssDao();
         return dao.getWhereDay(category1, category2, day);

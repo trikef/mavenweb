@@ -39,4 +39,19 @@ public class TagDao {
 		}
 		return tags;
 	}
+	
+	public List<Tag> getRelationTags(String url){
+		List<Tag> tags = null;
+		int limit = 30;
+		try {
+			ResultSetHandler<List<Tag>> rsh = new BeanListHandler<Tag>(Tag.class);
+			String sql =  "SELECT word,count(*) rank FROM tags_analyze where url=? GROUP BY word ORDER BY count(*) DESC LIMIT ?";
+
+			tags = run.query(sql, rsh, url, limit);
+		} catch (SQLException sqle) {
+			sqle.printStackTrace();
+			throw new RuntimeException(sqle.toString());
+		}
+		return tags;
+	}
 }

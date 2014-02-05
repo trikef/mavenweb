@@ -8,6 +8,7 @@ import javax.sql.DataSource;
 
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
+import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 import org.apache.commons.lang3.StringUtils;
@@ -115,5 +116,17 @@ public class RssDao {
 			throw new RuntimeException(sqle.toString());
 		}
 		//return inserts;
+	}
+
+	public Rss getFromId(int id) {
+		Rss rss = null;
+		try {
+			ResultSetHandler<Rss> rsh = new BeanHandler<Rss>(Rss.class);
+			rss = run.query("SELECT * FROM rss where id=?", rsh, id);
+		} catch (SQLException sqle) {
+			sqle.printStackTrace();
+			throw new RuntimeException(sqle.toString());
+		}
+		return rss;
 	}
 }
