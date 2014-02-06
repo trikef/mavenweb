@@ -1,5 +1,8 @@
 .tags{
 	margin: 0;
+	padding: 0px 0px 0px 8px;
+}
+.tags ul{
 	padding: 0;
 }
 .tags li{

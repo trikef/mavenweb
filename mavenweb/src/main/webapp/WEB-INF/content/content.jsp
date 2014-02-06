@@ -80,12 +80,14 @@ body {
 				</form>
 				<div class="row">
 					<div class="col-xs-12">
-						<h4>関連キーワード</h4>
-						<ul class="tags">
-						<s:iterator value="tags">
-							<li><a href="/<s:property value="word" />/tag"> <s:property value="word" /></a></li>
-						</s:iterator>
-						</ul>
+						<div class="tags">
+							<h5>関連キーワード</h5>
+							<ul>
+							<s:iterator value="tags">
+								<li><a href="/<s:property value="word" />/tag"> <s:property value="word" /></a></li>
+							</s:iterator>
+							</ul>
+						</div>
 					</div>
 				</div>
 			</div>
