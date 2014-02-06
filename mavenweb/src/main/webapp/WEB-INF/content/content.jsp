@@ -6,13 +6,13 @@
 <head>
 <title><s:if test="!rss.title.isEmpty()"><s:property value="rss.title"/>|</s:if>newsp</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="2chやブログ、気になる面白いニュースの最新記事一覧を提供">
+<meta name="description" content="<s:if test="!rss.title.isEmpty()">「<s:property value="rss.title"/>」の記事について関連キーワード等をご紹介!</s:if>2chやブログ、気になる面白いニュースの最新記事一覧を提供">
 
 <meta property="og:type" content="blog" />
-<meta property="og:title" content="newsp<s:if test="!q.isEmpty()">|<s:property value="q"/>の記事一覧</s:if>" />
-<meta property="og:description" content="2chやブログ、気になる面白いニュースの最新記事一覧を提供" />
+<meta property="og:title" content="<s:if test="!rss.title.isEmpty()"><s:property value="rss.title"/>|</s:if>newsp" />
+<meta property="og:description" content="<s:if test="!rss.title.isEmpty()">「<s:property value="rss.title"/>」の記事について関連キーワード等をご紹介!</s:if>2chやブログ、気になる面白いニュースの最新記事一覧を提供" />
 <meta property="og:url" content="http://newsp.iinur.com/" />
-<meta property="og:image" content="" />
+<meta property="og:image" content="<s:property escape="false" value="rss.img_url" />" />
 <meta property="og:site_name" content="newsp" />
 <meta property="og:locale" content="ja_JP" />
 
