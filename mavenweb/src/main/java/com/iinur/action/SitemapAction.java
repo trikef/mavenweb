@@ -43,7 +43,7 @@ public class SitemapAction extends ActionSupport {
         this.setUrl(config.getUrl());
         
 		TagModel tagm = new TagModel();
-        this.setTags(tagm.getTags());
+        this.setTags(tagm.getTags(500));
 		return "success";
 	}
 }

@@ -41,6 +41,7 @@ class RssTagsAnalyzeTimerTask extends TimerTask {
 		try{
 			RssDao dao = new RssDao();
 			dao.batch_update_tags();
+			dao.batch_update_tags_asoc();
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error(e.getMessage());

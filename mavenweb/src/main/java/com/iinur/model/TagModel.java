@@ -12,6 +12,11 @@ public class TagModel {
 		return dao.getTags();
 	}
 	
+	public List<Tag> getTags(int limit){
+		TagDao dao = new TagDao();
+		return dao.getTags(limit);
+	}
+	
 	public List<Tag> getRelationTags(String url){
 		TagDao dao = new TagDao();
 		return dao.getRelationTags(url);

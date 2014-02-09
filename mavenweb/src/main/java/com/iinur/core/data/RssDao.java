@@ -117,6 +117,19 @@ public class RssDao {
 		}
 		//return inserts;
 	}
+	
+	public void batch_update_tags_asoc(){
+		ResultSetHandler<Long> rsh = new ScalarHandler<Long>();
+		String sql = "SELECT update_tags_association()";
+		//long inserts = 0;
+		try {
+			run.query(sql,rsh);
+		} catch (SQLException sqle) {
+			sqle.printStackTrace();
+			throw new RuntimeException(sqle.toString());
+		}
+		//return inserts;
+	}
 
 	public Rss getFromId(int id) {
 		Rss rss = null;
