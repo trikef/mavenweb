@@ -54,4 +54,19 @@ public class TagDao {
 		}
 		return tags;
 	}
+	
+	public List<Tag> getRecommendTags(String word){
+		List<Tag> tags = null;
+		int limit = 30;
+		try {
+			ResultSetHandler<List<Tag>> rsh = new BeanListHandler<Tag>(Tag.class);
+			String sql =  "SELECT word_y as word FROM tags_association where word_x=? ORDER BY asoc DESC LIMIT ?";
+
+			tags = run.query(sql, rsh, word, limit);
+		} catch (SQLException sqle) {
+			sqle.printStackTrace();
+			throw new RuntimeException(sqle.toString());
+		}
+		return tags;
+	}
 }

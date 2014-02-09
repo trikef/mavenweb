@@ -16,4 +16,9 @@ public class TagModel {
 		TagDao dao = new TagDao();
 		return dao.getRelationTags(url);
 	}
+
+	public List<Tag> getRecommendTags(String q) {
+		TagDao dao = new TagDao();
+		return dao.getRecommendTags(q);
+	}
 }

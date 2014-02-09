@@ -55,14 +55,14 @@ public class IndexAction extends ActionSupport {
 		ServletContext sc = ServletActionContext.getServletContext();
 
         RssModel model = new RssModel(sc);
+        TagModel tagm = new TagModel();
         if(!StringUtils.isEmpty(q)){
         	this.setRsss(model.search(q));
+        	this.setTags(tagm.getRecommendTags(q));
         } else {
         	this.setRsss(model.get(c1, c2, d));
+        	this.setTags(tagm.getTags());
         }
-        
-        TagModel tagm = new TagModel();
-        this.setTags(tagm.getTags());
 
 		return "success";
 	}
