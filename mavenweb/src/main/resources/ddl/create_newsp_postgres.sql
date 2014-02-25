@@ -48,3 +48,15 @@ CREATE TABLE tags_association(
 	asoc DOUBLE PRECISION,
 	PRIMARY KEY(word_x,word_y)
 );
+
+DROP TABLE IF EXISTS tweet;
+CREATE TABLE tweet(
+	id BIGINT NOT NULL,
+	text VARCHAR(300) NOT NULL,
+	url VARCHAR(300),
+	screen_name VARCHAR(100) NOT NULL,
+	name VARCHAR(200) NOT NULL,
+	mini_profile_image_url VARCHAR(300),
+	created_at TIMESTAMP,
+	PRIMARY KEY(id)
+);
