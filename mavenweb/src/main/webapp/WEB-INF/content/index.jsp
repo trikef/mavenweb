@@ -49,7 +49,7 @@ body {
 			</div>
 			<div class="collapse navbar-collapse">
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="./">Home</a></li>
+					<li class="active"><a href="/">Home</a></li>
 					<li><a href="/2ちゃんねる/category/2ch">2ch</a></li>
 					<li><a href="/finalfantasyxiv/category2/game/ff14">FF14</a></li>
 					<li><a href="/パズドラ/category2/game/pad">パズドラ</a></li>
@@ -99,13 +99,12 @@ body {
 							</a></s:if>
 						</td>
 						<td>
-							<a href="<s:property value="link" />" title="<s:property value="description" />" target="blank">
+							<a href="/<s:property value="title" />/content/<s:property value="id" />">
 								<s:property value="title" />
 							</a>
 							<span class="text-light"><s:property value="blog_title" /></span>
 							<p class="text-right text-light">
-								<a href="/<s:property value="title" />/content/<s:property value="id" />">関連キーワード</a>
-								<small class="text-light"><s:date name="date_written" format="MM/dd HH:mm" /></small>
+								<small class="text-light"><s:date name="date_written" format="yyyy/MM/dd HH:mm" /></small>
 							</p>
 						</td>
 					</tr>

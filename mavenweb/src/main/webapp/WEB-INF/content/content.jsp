@@ -49,7 +49,7 @@ body {
 			</div>
 			<div class="collapse navbar-collapse">
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="./">Home</a></li>
+					<li class="active"><a href="/">Home</a></li>
 					<li><a href="/2ちゃんねる/category/2ch">2ch</a></li>
 					<li><a href="/finalfantasyxiv/category2/game/ff14">FF14</a></li>
 					<li><a href="/パズドラ/category2/game/pad">パズドラ</a></li>
@@ -108,7 +108,7 @@ body {
 								<s:property value="rss.description" />
 							</a>
 							<span class="text-light"><s:property value="rss.blog_title" /></span>
-							<p class="text-right"><small class="text-light"><s:date name="rss.date_written" format="MM/dd HH:mm" /></small></p>
+							<p class="text-right"><small class="text-light"><s:date name="rss.date_written" format="yyyy/MM/dd HH:mm" /></small></p>
 						</td>
 					</tr>
 					<tr>
@@ -117,6 +117,23 @@ body {
 						</td>
 					</tr>
 				</table>
+				<s:if test="tweets != null && !tweets.isEmpty()">
+				<h4>この記事へのツイート</h4>
+				<table class="table table-striped">
+					<s:iterator value="tweets">
+					<tr>
+						<td>
+							<a href="https://twitter.com/<s:property value="screen_name" />/status/<s:property value="id" />" target="_blank">
+								<img src="<s:property value="mini_profile_image_url" />" />
+								<s:property value="name" />
+							</a>
+							<span class="text-light"><s:date name="created_at" format="yyyy/MM/dd HH:mm" />@<s:property value="screen_name" /></span>
+							<p><s:property value="text" /></p>
+						</td>
+					</tr>
+					</s:iterator>
+				</table>
+				</s:if>
 			</div>
 		</div>
 	</div>
