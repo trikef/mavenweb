@@ -61,15 +61,15 @@ public class RssDao {
 					Rss.class);
 			if(StringUtils.isEmpty(category1)){
 				rsss = run.query("SELECT * FROM rss "
-								+ "INNER JOIN (SELECT url,max(num) as num FROM tweet_count GROUP BY url) t ON t.url = rss.link "
+								+ "LEFT JOIN (SELECT url,max(num) as num FROM tweet_count GROUP BY url) t ON t.url = rss.link "
 								+ "WHERE date_written > to_date(?,'YYYY-MM-DD')-1 ORDER BY date_written DESC", rsh, day);//yyyy-mm-dd
 			} else if(StringUtils.isEmpty(category2)){
 				rsss = run.query("SELECT * FROM rss "
-						+ "INNER JOIN (SELECT url,max(num) as num FROM tweet_count GROUP BY url) t ON t.url = rss.link "
+						+ "LEFT JOIN (SELECT url,max(num) as num FROM tweet_count GROUP BY url) t ON t.url = rss.link "
 						+ "WHERE category1=? and date_written > to_date(?,'YYYY-MM-DD')-1 ORDER BY date_written DESC", rsh, category1, day);//yyyy-mm-dd
 			} else {
 				rsss = run.query("SELECT * FROM rss "
-						+ "INNER JOIN (SELECT url,max(num) as num FROM tweet_count GROUP BY url) t ON t.url = rss.link "
+						+ "LEFT JOIN (SELECT url,max(num) as num FROM tweet_count GROUP BY url) t ON t.url = rss.link "
 						+ "WHERE category1=? and category2=? and date_written > to_date(?,'YYYY-MM-DD')-1 ORDER BY date_written DESC", rsh, category1, category2, day);//yyyy-mm-dd
 			}
 		} catch (SQLException sqle) {
@@ -82,7 +82,7 @@ public class RssDao {
 	public List<Rss> getRanking(int limit){
 		String sql = "SELECT * FROM "
 				+ "(SELECT url,max(num) as num FROM tweet_count WHERE created_at > CURRENT_DATE-1 GROUP BY url ORDER BY num DESC LIMIT ?) t "
-				+ "INNER JOIN rss ON t.url=rss.link "
+				+ "LEFT JOIN rss ON t.url=rss.link "
 				+ "WHERE date_written > CURRENT_DATE-3 "
 				+ "ORDER BY num DESC";
 		List<Rss> rsss = null;
@@ -104,7 +104,8 @@ public class RssDao {
 					Rss.class);
 			String sql =  "SELECT"
 					+ " *, ts_rank(to_tsvector('japanese', title) ,to_tsquery('japanese', ?)) as rank"
-					+ " FROM rss"
+					+ " FROM rss "
+					+ " LEFT JOIN (SELECT url,max(num) as num FROM tweet_count GROUP BY url) t ON t.url = rss.link "
 					+ " WHERE to_tsvector('japanese', title) @@ to_tsquery('japanese', ?)"
 					+ " ORDER BY date_written DESC";
 
@@ -113,7 +114,8 @@ public class RssDao {
 			if(rsss.size() == 0){
 				sql =  "SELECT"
 						+ " *, ts_rank(to_tsvector('japanese', title) ,to_tsquery('japanese', ?)) as rank"
-						+ " FROM rss"
+						+ " FROM rss "
+						+ " LEFT JOIN (SELECT url,max(num) as num FROM tweet_count GROUP BY url) t ON t.url = rss.link "
 						+ " WHERE to_tsvector('japanese', title) @@ ?::tsquery"
 						+ " ORDER BY date_written DESC";
 
@@ -172,7 +174,9 @@ public class RssDao {
 		Rss rss = null;
 		try {
 			ResultSetHandler<Rss> rsh = new BeanHandler<Rss>(Rss.class);
-			rss = run.query("SELECT * FROM rss where id=?", rsh, id);
+			rss = run.query("SELECT * FROM rss "
+					+ "LEFT JOIN (SELECT url,max(num) as num FROM tweet_count GROUP BY url) t ON t.url = rss.link "
+					+ "where id=?", rsh, id);
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();
 			throw new RuntimeException(sqle.toString());
