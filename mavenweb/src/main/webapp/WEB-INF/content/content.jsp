@@ -61,7 +61,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 	</div>
 	<div class="container">
 		<div class="row">
-			<div class="col-md-2">
+			<div class="col-md-3">
 				<form action="/" method="get">
 					<div class="row">
 						<div class="col-xs-12">
@@ -77,6 +77,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 					</div>
 					<!-- /.row -->
 				</form>
+				<s:if test="!tags.isEmpty()">
 				<div class="row">
 					<div class="col-xs-12">
 						<div class="tags">
@@ -89,8 +90,38 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 						</div>
 					</div>
 				</div>
+				</s:if>
+				<div class="row">
+					<div class="col-xs-12">
+						<h4>l‹C‚Ì‹L–</h4>
+						<table class="table table-striped">
+							<s:iterator value="rsssRanking">
+							<tr>
+								<td class="td-small">
+									<s:if test="!img_url.isEmpty()"><a href="<s:property value="link" />" title="<s:property value="description" />" target="blank">
+									<nowrap><img src="<s:property escape="false" value="img_url" />" class="img-thumbnail img-small" /></nowrap>
+									</a>
+									</s:if>
+								</td>
+								<td>
+									<s:if test="%{num > 0}">
+									<span class="twnum"><s:property value="num" />RT</span>
+									</s:if>
+									<a href="/<s:property value="%{title.replaceAll('%','%25')}" />/content/<s:property value="id" />">
+										<s:property value="title" />
+									</a>
+									<span class="text-light"><s:property value="blog_title" /></span>
+									<p class="text-right text-light">
+										<small class="text-light"><s:date name="date_written" format="yyyy/MM/dd HH:mm" /></small>
+									</p>
+								</td>
+							</tr>
+							</s:iterator>
+						</table>
+					</div>
+				</div>
 			</div>
-			<div class="col-md-10">
+			<div class="col-md-9">
 				<a href="<s:property value="rss.link" />" title="<s:property value="rss.description" />" target="blank">
 					<h1><s:property value="rss.title"/></h1>
 				</a>

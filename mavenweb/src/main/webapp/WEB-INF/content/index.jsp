@@ -61,7 +61,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 	</div>
 	<div class="container">
 		<div class="row">
-			<div class="col-md-2">
+			<div class="col-md-3">
 				<form action="/" method="get">
 					<div class="row">
 						<div class="col-xs-12">
@@ -86,19 +86,53 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 						</ul>
 					</div>
 				</div>
+				<div class="row">
+					<div class="col-xs-12">
+						<h4>人気の記事</h4>
+						<table class="table table-striped">
+							<s:iterator value="rsssRanking">
+							<tr>
+								<td class="td-small">
+									<s:if test="!img_url.isEmpty()"><a href="<s:property value="link" />" title="<s:property value="description" />" target="blank">
+									<nowrap><img src="<s:property escape="false" value="img_url" />" class="img-thumbnail img-small" /></nowrap>
+									</a>
+									</s:if>
+								</td>
+								<td>
+									<s:if test="%{num > 0}">
+									<span class="twnum"><s:property value="num" />RT</span>
+									</s:if>
+									<a href="/<s:property value="%{title.replaceAll('%','%25')}" />/content/<s:property value="id" />">
+										<s:property value="title" />
+									</a>
+									<span class="text-light"><s:property value="blog_title" /></span>
+									<p class="text-right text-light">
+										<small class="text-light"><s:date name="date_written" format="yyyy/MM/dd HH:mm" /></small>
+									</p>
+								</td>
+							</tr>
+							</s:iterator>
+						</table>
+					</div>
+				</div>
 			</div>
-			<div class="col-md-10">
+			<div class="col-md-9">
 				<s:if test="!q.isEmpty()"><h1><s:property value="q"/>の記事一覧</h1></s:if>
+				<s:else><h4>最近の記事一覧</h4></s:else>
 				<table class="table table-striped">
 					<s:iterator value="rsss">
 					<tr>
 						<td class="td-small">
 							<s:if test="!img_url.isEmpty()"><a href="<s:property value="link" />" title="<s:property value="description" />" target="blank">
 							<nowrap><img src="<s:property escape="false" value="img_url" />" class="img-thumbnail img-small" /></nowrap>
-							</a></s:if>
+							</a>
+							</s:if>
 						</td>
 						<td>
-							<a href="/<s:property value="title" />/content/<s:property value="id" />">
+							<s:if test="%{num > 0}">
+							<span class="twnum"><s:property value="num" />RT</span>
+							</s:if>
+							<a href="/<s:property value="%{title.replaceAll('%','%25')}" />/content/<s:property value="id" />">
 								<s:property value="title" />
 							</a>
 							<span class="text-light"><s:property value="blog_title" /></span>

@@ -60,3 +60,12 @@ CREATE TABLE tweet(
 	created_at TIMESTAMP,
 	PRIMARY KEY(id)
 );
+
+DROP TABLE IF EXISTS tweet_count;
+CREATE TABLE tweet_count(
+	id SERIAL,
+	url VARCHAR(300) NOT NULL,
+	num INTEGER NOT NUll,
+	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY(id)
+);

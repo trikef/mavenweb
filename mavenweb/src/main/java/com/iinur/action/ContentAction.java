@@ -23,6 +23,8 @@ public class ContentAction extends ActionSupport {
 	private Rss rss;
 	private List<Tag> tags;
 	private List<Tweet> tweets;
+	private List<Rss> rsssRanking;
+	private int limitRanking = 10;
 
 	public String getId() {
 		return id;
@@ -56,6 +58,14 @@ public class ContentAction extends ActionSupport {
 		this.tweets = tweets;
 	}
 
+	public List<Rss> getRsssRanking() {
+		return rsssRanking;
+	}
+
+	public void setRsssRanking(List<Rss> rsssRanking) {
+		this.rsssRanking = rsssRanking;
+	}
+
 	public String execute() {
 		
 		ServletContext sc = ServletActionContext.getServletContext();
@@ -65,9 +75,10 @@ public class ContentAction extends ActionSupport {
         	this.setRss(model.get(Integer.parseInt(id)));
         	
         	TagModel tmodel = new TagModel();
-        	setTags(tmodel.getRelationTags(getRss().getLink()));
+        	this.setTags(tmodel.getRelationTags(getRss().getLink()));
         	TwitterModel twmodel = new TwitterModel();
-        	setTweets(twmodel.getWhereUrl(getRss().getLink()));
+        	this.setTweets(twmodel.getWhereUrl(getRss().getLink()));
+        	this.setRsssRanking(model.getRanking(limitRanking));
         }
 
 		return "success";

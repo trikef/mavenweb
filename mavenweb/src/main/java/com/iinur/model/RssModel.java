@@ -49,6 +49,11 @@ public class RssModel {
         return dao.getWhereDay(category1, category2, day);
 	}
 
+	public List<Rss> getRanking(int limit){
+		RssDao dao = new RssDao();
+        return dao.getRanking(limit);
+	}
+
 	public List<RssDocumentBean> getRssHttp(RssConfig conf){
 		RssFactory rf = new RssFactory();
 		RssDocument rd = rf.getRssDocument(conf);

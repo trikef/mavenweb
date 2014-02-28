@@ -25,7 +25,9 @@ public class IndexAction extends ActionSupport {
 	private static final long serialVersionUID = 1L;
 
     private List<Rss> rsss;
-    private List<Tag> tags;
+    private List<Rss> rsssRanking;
+	private List<Tag> tags;
+	private int limitRanking = 10;
 
 	//category
     public String c1;
@@ -50,6 +52,14 @@ public class IndexAction extends ActionSupport {
 		this.tags = tags;
 	}
 
+	public List<Rss> getRsssRanking() {
+		return rsssRanking;
+	}
+
+	public void setRsssRanking(List<Rss> rsssRanking) {
+		this.rsssRanking = rsssRanking;
+	}
+
 	public String execute() {
 
 		ServletContext sc = ServletActionContext.getServletContext();
@@ -63,6 +73,7 @@ public class IndexAction extends ActionSupport {
         	this.setRsss(model.get(c1, c2, d));
         	this.setTags(tagm.getTags());
         }
+    	this.setRsssRanking(model.getRanking(limitRanking));
 
 		return "success";
 	}

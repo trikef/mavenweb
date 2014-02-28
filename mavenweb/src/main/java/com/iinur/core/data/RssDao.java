@@ -41,18 +41,55 @@ public class RssDao {
 		return rsss.size();
 	}
 
+	public int existLink(String link) {
+		List<Rss> rsss = null;
+		try {
+			ResultSetHandler<List<Rss>> rsh = new BeanListHandler<Rss>(
+					Rss.class);
+			rsss = run.query("SELECT * FROM rss where link=?", rsh, link);
+		} catch (SQLException sqle) {
+			sqle.printStackTrace();
+			throw new RuntimeException(sqle.toString());
+		}
+		return rsss.size();
+	}
+
 	public List<Rss> getWhereDay(String category1, String category2, String day) {
 		List<Rss> rsss = null;
 		try {
 			ResultSetHandler<List<Rss>> rsh = new BeanListHandler<Rss>(
 					Rss.class);
 			if(StringUtils.isEmpty(category1)){
-				rsss = run.query("SELECT * FROM rss where date_written > to_date(?,'YYYY-MM-DD')-1 ORDER BY date_written DESC", rsh, day);//yyyy-mm-dd
+				rsss = run.query("SELECT * FROM rss "
+								+ "INNER JOIN (SELECT url,max(num) as num FROM tweet_count GROUP BY url) t ON t.url = rss.link "
+								+ "WHERE date_written > to_date(?,'YYYY-MM-DD')-1 ORDER BY date_written DESC", rsh, day);//yyyy-mm-dd
 			} else if(StringUtils.isEmpty(category2)){
-				rsss = run.query("SELECT * FROM rss where category1=? and date_written > to_date(?,'YYYY-MM-DD')-1 ORDER BY date_written DESC", rsh, category1, day);//yyyy-mm-dd
+				rsss = run.query("SELECT * FROM rss "
+						+ "INNER JOIN (SELECT url,max(num) as num FROM tweet_count GROUP BY url) t ON t.url = rss.link "
+						+ "WHERE category1=? and date_written > to_date(?,'YYYY-MM-DD')-1 ORDER BY date_written DESC", rsh, category1, day);//yyyy-mm-dd
 			} else {
-				rsss = run.query("SELECT * FROM rss where category1=? and category2=? and date_written > to_date(?,'YYYY-MM-DD')-1 ORDER BY date_written DESC", rsh, category1, category2, day);//yyyy-mm-dd
+				rsss = run.query("SELECT * FROM rss "
+						+ "INNER JOIN (SELECT url,max(num) as num FROM tweet_count GROUP BY url) t ON t.url = rss.link "
+						+ "WHERE category1=? and category2=? and date_written > to_date(?,'YYYY-MM-DD')-1 ORDER BY date_written DESC", rsh, category1, category2, day);//yyyy-mm-dd
 			}
+		} catch (SQLException sqle) {
+			sqle.printStackTrace();
+			throw new RuntimeException(sqle.toString());
+		}
+		return rsss;
+	}
+	
+	public List<Rss> getRanking(int limit){
+		String sql = "SELECT * FROM "
+				+ "(SELECT url,max(num) as num FROM tweet_count WHERE created_at > CURRENT_DATE-1 GROUP BY url ORDER BY num DESC LIMIT ?) t "
+				+ "INNER JOIN rss ON t.url=rss.link "
+				+ "WHERE date_written > CURRENT_DATE-3 "
+				+ "ORDER BY num DESC";
+		List<Rss> rsss = null;
+		try {
+			ResultSetHandler<List<Rss>> rsh = new BeanListHandler<Rss>(
+					Rss.class);
+			rsss = run.query(sql, rsh, limit);
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();
 			throw new RuntimeException(sqle.toString());

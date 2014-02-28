@@ -11,6 +11,7 @@ import javax.servlet.ServletContext;
 import com.iinur.core.config.RssConfig;
 import com.iinur.core.data.bean.Rss;
 import com.iinur.model.RssModel;
+import com.iinur.model.TwitterModel;
 
 public class RssCrawler {
 
@@ -34,6 +35,9 @@ public class RssCrawler {
 
 		for (Rss rss : list) {
 			model.registration(rss);
+			TwitterModel tmodel = new TwitterModel();
+			int count = tmodel.countSearch(rss.getLink());
+			tmodel.registrationTweetCount(rss.getLink(), count);
 		}
 
 		return list.size();
