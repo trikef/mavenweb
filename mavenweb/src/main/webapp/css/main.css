@@ -19,7 +19,14 @@
 .td-small{
 	width: 100px;
 }
+.pop-small{
+	font-size: 90%;
+	max-height: 51px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
 .text-light{
+	font-size: 80%;
 	color: #ccc;
 }
 .twnum{

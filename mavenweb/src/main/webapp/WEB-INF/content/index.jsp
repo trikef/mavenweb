@@ -99,16 +99,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 									</s:if>
 								</td>
 								<td>
-									<s:if test="%{num > 0}">
-									<span class="twnum"><s:property value="num" />RT</span>
-									</s:if>
-									<a href="/<s:property value="%{title.replaceAll('%','%25')}" />/content/<s:property value="id" />">
-										<s:property value="title" />
-									</a>
+									<div class="pop-small">
+										<s:if test="%{num > 0}">
+										<span class="twnum"><s:property value="num" />RT</span>
+										</s:if>
+										<a href="/<s:property value="%{title.replaceAll('%','%25')}" />/content/<s:property value="id" />">
+											<s:property value="title" />
+										</a>
+									</div>
 									<span class="text-light"><s:property value="blog_title" /></span>
-									<p class="text-right text-light">
-										<small class="text-light"><s:date name="date_written" format="yyyy/MM/dd HH:mm" /></small>
-									</p>
 								</td>
 							</tr>
 							</s:iterator>
