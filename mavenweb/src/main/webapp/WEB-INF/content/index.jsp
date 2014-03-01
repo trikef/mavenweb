@@ -87,13 +87,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-xs-12">
+					<div id="ranking" class="col-xs-12">
 						<h4>l‹C‚Ì‹L–</h4>
 						<table class="table table-striped">
-							<s:iterator value="rsssRanking">
+							<s:iterator value="rsssRanking" status="stat">
 							<tr>
 								<td class="td-small">
-									<s:if test="!img_url.isEmpty()"><a href="<s:property value="link" />" title="<s:property value="description" />" target="blank">
+									<s:if test="!img_url.isEmpty()"><a href="/<s:property value="%{title.replaceAll('%','%25')}" />/content/<s:property value="id" />?rank=<s:property value="#stat.count" />" title="<s:property value="description" />">
 									<nowrap><img src="<s:property escape="false" value="img_url" />" class="img-thumbnail img-small" /></nowrap>
 									</a>
 									</s:if>
@@ -103,7 +103,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 										<s:if test="%{num > 0}">
 										<span class="twnum"><s:property value="num" />RT</span>
 										</s:if>
-										<a href="/<s:property value="%{title.replaceAll('%','%25')}" />/content/<s:property value="id" />">
+										<a href="/<s:property value="%{title.replaceAll('%','%25')}" />/content/<s:property value="id" />?rank=<s:property value="#stat.count" />" title="<s:property value="description" />">
 											<s:property value="title" />
 										</a>
 									</div>
@@ -122,7 +122,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 					<s:iterator value="rsss">
 					<tr>
 						<td class="td-small">
-							<s:if test="!img_url.isEmpty()"><a href="<s:property value="link" />" title="<s:property value="description" />" target="blank">
+							<s:if test="!img_url.isEmpty()"><a href="/<s:property value="%{title.replaceAll('%','%25')}" />/content/<s:property value="id" />" title="<s:property value="description" />">
 							<nowrap><img src="<s:property escape="false" value="img_url" />" class="img-thumbnail img-small" /></nowrap>
 							</a>
 							</s:if>
@@ -131,7 +131,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 							<s:if test="%{num > 0}">
 							<span class="twnum"><s:property value="num" />RT</span>
 							</s:if>
-							<a href="/<s:property value="%{title.replaceAll('%','%25')}" />/content/<s:property value="id" />">
+							<a href="/<s:property value="%{title.replaceAll('%','%25')}" />/content/<s:property value="id" />" title="<s:property value="description" />">
 								<s:property value="title" />
 							</a>
 							<span class="text-light"><s:property value="blog_title" /></span>
