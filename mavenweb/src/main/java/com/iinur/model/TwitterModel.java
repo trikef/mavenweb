@@ -92,15 +92,15 @@ public class TwitterModel {
 		return exists;
 	}
 
-	public List<Tweet> getWhereUrl(String url) {
+	public List<Tweet> getWhereUrl(String url, int limit) {
 		TweetDao dao = new TweetDao();
-		if(dao.existUrl(url) < 10){
+		if(dao.existUrl(url) < limit){
 			List<Status> tweets = search(url);
 			for (Status tweet : tweets) {
 				registration(tweet, url);
 			}
 			log.debug("get tweets num:" + tweets.size() + " url:" + url);
 		}
-		return dao.getWhereUrl(url);
+		return dao.getWhereUrl(url, limit);
 	}
 }

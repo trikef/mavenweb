@@ -30,7 +30,7 @@ public class TweetDao {
 		int inserts;
 		try {
 			inserts = run
-					.update("insert into tweet (id, text, url, screen_name, name, mini_profile_image_url, created_at) values(?,?,?,?,?,?,?)",
+					.update("INSERT INTO tweet (id, text, url, screen_name, name, mini_profile_image_url, created_at) VALUES(?,?,?,?,?,?,?)",
 							id, text, url, screen_name, name,
 							mini_profile_image_url, created_at);
 		} catch (SQLException sqle) {
@@ -45,7 +45,7 @@ public class TweetDao {
 		try {
 			ResultSetHandler<List<Tweet>> rsh = new BeanListHandler<Tweet>(
 					Tweet.class);
-			tweets = run.query("SELECT * FROM tweet where id=?", rsh, id);
+			tweets = run.query("SELECT * FROM tweet WHERE id=?", rsh, id);
 		} catch (SQLException sqle) {
 			log.error(sqle.getMessage());
 			throw new RuntimeException(sqle.toString());
@@ -58,7 +58,7 @@ public class TweetDao {
 		try {
 			ResultSetHandler<List<Tweet>> rsh = new BeanListHandler<Tweet>(
 					Tweet.class);
-			tweets = run.query("SELECT * FROM tweet where url=?", rsh, url);
+			tweets = run.query("SELECT * FROM tweet WHERE url=?", rsh, url);
 		} catch (SQLException sqle) {
 			log.error(sqle.getMessage());
 			throw new RuntimeException(sqle.toString());
@@ -66,12 +66,12 @@ public class TweetDao {
 		return tweets.size();
 	}
 	
-	public List<Tweet> getWhereUrl(String url) {
+	public List<Tweet> getWhereUrl(String url, int limit) {
 		List<Tweet> tweets = null;
 		try {
 			ResultSetHandler<List<Tweet>> rsh = new BeanListHandler<Tweet>(
 					Tweet.class);
-			tweets = run.query("SELECT * FROM tweet where url=?", rsh, url);
+			tweets = run.query("SELECT * FROM tweet WHERE url=? LIMIT ?", rsh, url, limit);
 		} catch (SQLException sqle) {
 			log.error(sqle.getMessage());
 			throw new RuntimeException(sqle.toString());

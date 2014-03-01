@@ -43,7 +43,21 @@
 	max-width:100%;
 	height: auto;
 }
+#content-title h1{
+	font-size: 30px;
+	color: black;
+}
+.jumbotron{
+	padding:10px;
+}
+.input-group{
+	width: 219px;
+}
+
 @media (max-width: 767px) {
+	#content-title h1{
+		font-size: 15px;
+	}
 	.content-resize-col-1{
 		max-width:200px;
 	}
@@ -60,5 +74,8 @@
 		max-width:250px;
 		overflow: hidden;
 		text-overflow: ellipsis;
+	}
+	#tweets{
+		font-size: 70%;
 	}
 }

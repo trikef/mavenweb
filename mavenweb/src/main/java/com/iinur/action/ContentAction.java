@@ -24,7 +24,8 @@ public class ContentAction extends ActionSupport {
 	private List<Tag> tags;
 	private List<Tweet> tweets;
 	private List<Rss> rsssRanking;
-	private int limitRanking = 10;
+	private static int LIMIT_RANKING = 10;
+	private static int LIMIT_TWEETS = 3;
 
 	public String getId() {
 		return id;
@@ -77,8 +78,8 @@ public class ContentAction extends ActionSupport {
         	TagModel tmodel = new TagModel();
         	this.setTags(tmodel.getRelationTags(getRss().getLink()));
         	TwitterModel twmodel = new TwitterModel();
-        	this.setTweets(twmodel.getWhereUrl(getRss().getLink()));
-        	this.setRsssRanking(model.getRanking(limitRanking));
+        	this.setTweets(twmodel.getWhereUrl(getRss().getLink(), LIMIT_TWEETS));
+        	this.setRsssRanking(model.getRanking(LIMIT_RANKING));
         }
 
 		return "success";

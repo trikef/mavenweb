@@ -55,28 +55,46 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 					<li><a href="/it/category/it">IT</a></li>
 					<li><a href="/lifehack/category/life">Lifehack</a></li>
 				</ul>
+				<form class="navbar-form navbar-left" role="search" action="/"
+					method="get">
+					<div class="input-group">
+						<input type="text" class="form-control" placeholder="Search" name="q">
+						<span class="input-group-btn">
+							<button type="submit" class="btn btn-default">検索</button>
+						</span>
+					</div>
+				</form>
 			</div>
 			<!--/.nav-collapse -->
 		</div>
 	</div>
 	<div class="container">
 		<div class="row">
-			<div class="col-md-3">
-				<form action="/" method="get">
-					<div class="row">
-						<div class="col-xs-12">
-							<div class="input-group">
-								<input type="text" class="form-control" name="q"> <span
-									class="input-group-btn">
-									<button class="btn btn-default" type="submit">検索</button>
-								</span>
-							</div>
-							<!-- /input-group -->
-						</div>
-						<!-- /.col-lg-6 -->
-					</div>
-					<!-- /.row -->
-				</form>
+			<div class="col-md-12">
+				<table class="table table-striped">
+					<tr>
+						<td class="td-small">
+							<s:if test="!rss.img_url.isEmpty()"><a href="#content" title="<s:property value="rss.description" />">
+							<nowrap><img src="<s:property escape="false" value="rss.img_url" />" class="img-thumbnail img-small" /></nowrap>
+							</a>
+							</s:if>
+						</td>
+						<td>
+							<s:if test="%{rss.num > 0}">
+							<span class="twnum"><s:property value="rss.num" />RT</span>
+							</s:if>
+							<span id="content-title">
+							<a href="#content" title="<s:property value="rss.description" />">
+								<h1><s:property value="rss.title" /></h1>
+							</a>
+							</span>
+							<span class="text-light"><s:property value="rss.blog_title" /></span>
+							<p class="text-right text-light">
+								<small class="text-light"><s:date name="rss.date_written" format="yyyy/MM/dd HH:mm" /></small>
+							</p>
+						</td>
+					</tr>
+				</table>
 				<s:if test="!tags.isEmpty()">
 				<div class="row">
 					<div class="col-xs-12">
@@ -91,6 +109,37 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 					</div>
 				</div>
 				</s:if>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-9">
+				<table id="content" class="table">
+					<tr>
+						<td class="content-resize" colspan="2">
+						<s:property escape="false" value="rss.content" />
+						</td>
+					</tr>
+				</table>
+				<a href="<s:property value="rss.link" />" title="<s:property value="rss.description" />" target="blank">[元の記事を読む]</a>
+				<s:if test="tweets != null && !tweets.isEmpty()">
+				<h4>この記事へのツイート</h4>
+				<table id="tweets" class="table table-striped">
+					<s:iterator value="tweets">
+					<tr>
+						<td>
+							<a href="https://twitter.com/<s:property value="screen_name" />/status/<s:property value="id" />" target="_blank">
+								<img src="<s:property value="mini_profile_image_url" />" />
+								<s:property value="name" />
+							</a>
+							<span class="text-light"><s:date name="created_at" format="yyyy/MM/dd HH:mm" />@<s:property value="screen_name" /></span>
+							<p><s:property value="text" /></p>
+						</td>
+					</tr>
+					</s:iterator>
+				</table>
+				</s:if>
+			</div>
+			<div class="col-md-3">
 				<div class="row">
 					<div id="ranking" class="col-xs-12">
 						<h4>人気の記事</h4>
@@ -119,53 +168,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 						</table>
 					</div>
 				</div>
-			</div>
-			<div class="col-md-9">
-				<a href="<s:property value="rss.link" />" title="<s:property value="rss.description" />" target="blank">
-					<h1><s:property value="rss.title"/></h1>
-				</a>
-				<a href="<s:property value="rss.link" />" title="<s:property value="rss.description" />" target="blank">[元の記事を読む]</a>
-				<table class="table table-striped">
-					<tr>
-						<td class="td-small">
-							<s:if test="!rss.img_url.isEmpty()"><a href="<s:property value="rss.link" />" title="<s:property value="rss.description" />" target="blank">
-							<nowrap><img src="<s:property escape="false" value="rss.img_url" />" class="img-thumbnail img-small" /></nowrap>
-							</a></s:if>
-						</td>
-						<td class="content-resize-col-1">
-							<s:if test="%{rss.num > 0}">
-							<span class="twnum"><s:property value="rss.num" />RT</span>
-							</s:if>
-							<a href="<s:property value="rss.link" />" title="<s:property value="rss.description" />" target="blank">
-								<s:property value="rss.description" />
-							</a>
-							<span class="text-light"><s:property value="rss.blog_title" /></span>
-							<p class="text-right"><small class="text-light"><s:date name="rss.date_written" format="yyyy/MM/dd HH:mm" /></small></p>
-						</td>
-					</tr>
-					<tr>
-						<td class="content-resize" colspan="2">
-						<s:property escape="false" value="rss.content" />
-						</td>
-					</tr>
-				</table>
-				<s:if test="tweets != null && !tweets.isEmpty()">
-				<h4>この記事へのツイート</h4>
-				<table class="table table-striped">
-					<s:iterator value="tweets">
-					<tr>
-						<td>
-							<a href="https://twitter.com/<s:property value="screen_name" />/status/<s:property value="id" />" target="_blank">
-								<img src="<s:property value="mini_profile_image_url" />" />
-								<s:property value="name" />
-							</a>
-							<span class="text-light"><s:date name="created_at" format="yyyy/MM/dd HH:mm" />@<s:property value="screen_name" /></span>
-							<p><s:property value="text" /></p>
-						</td>
-					</tr>
-					</s:iterator>
-				</table>
-				</s:if>
 			</div>
 		</div>
 	</div>

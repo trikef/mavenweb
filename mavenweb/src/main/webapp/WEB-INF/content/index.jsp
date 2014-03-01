@@ -55,37 +55,59 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 					<li><a href="/it/category/it">IT</a></li>
 					<li><a href="/lifehack/category/life">Lifehack</a></li>
 				</ul>
+				<form class="navbar-form navbar-left" role="search" action="/"
+					method="get">
+					<div class="input-group">
+						<input type="text" class="form-control" placeholder="Search" name="q">
+						<span class="input-group-btn">
+							<button type="submit" class="btn btn-default">検索</button>
+						</span>
+					</div>
+				</form>
 			</div>
 			<!--/.nav-collapse -->
 		</div>
 	</div>
 	<div class="container">
 		<div class="row">
+			<div class="col-md-12">
+				<ul class="tags">
+				<s:iterator value="tags">
+					<li><a href="/<s:property value="word" />/tag"> <s:property value="word" /></a></li>
+				</s:iterator>
+				</ul>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-9">
+				<s:if test="!q.isEmpty()"><h1><s:property value="q"/>の記事一覧</h1></s:if>
+				<s:else><h4>最近の記事一覧</h4></s:else>
+				<table class="table table-striped">
+					<s:iterator value="rsss">
+					<tr>
+						<td class="td-small">
+							<s:if test="!img_url.isEmpty()"><a href="/<s:property value="%{title.replaceAll('%','%25')}" />/content/<s:property value="id" />" title="<s:property value="description" />">
+							<nowrap><img src="<s:property escape="false" value="img_url" />" class="img-thumbnail img-small" /></nowrap>
+							</a>
+							</s:if>
+						</td>
+						<td>
+							<s:if test="%{num > 0}">
+							<span class="twnum"><s:property value="num" />RT</span>
+							</s:if>
+							<a href="/<s:property value="%{title.replaceAll('%','%25')}" />/content/<s:property value="id" />" title="<s:property value="description" />">
+								<s:property value="title" />
+							</a>
+							<span class="text-light"><s:property value="blog_title" /></span>
+							<p class="text-right text-light">
+								<small class="text-light"><s:date name="date_written" format="yyyy/MM/dd HH:mm" /></small>
+							</p>
+						</td>
+					</tr>
+					</s:iterator>
+				</table>
+			</div>
 			<div class="col-md-3">
-				<form action="/" method="get">
-					<div class="row">
-						<div class="col-xs-12">
-							<div class="input-group">
-								<input type="text" class="form-control" name="q"> <span
-									class="input-group-btn">
-									<button class="btn btn-default" type="submit">検索</button>
-								</span>
-							</div>
-							<!-- /input-group -->
-						</div>
-						<!-- /.col-lg-6 -->
-					</div>
-					<!-- /.row -->
-				</form>
-				<div class="row">
-					<div class="col-xs-12">
-						<ul class="tags">
-						<s:iterator value="tags">
-							<li><a href="/<s:property value="word" />/tag"> <s:property value="word" /></a></li>
-						</s:iterator>
-						</ul>
-					</div>
-				</div>
 				<div class="row">
 					<div id="ranking" class="col-xs-12">
 						<h4>人気の記事</h4>
@@ -114,34 +136,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 						</table>
 					</div>
 				</div>
-			</div>
-			<div class="col-md-9">
-				<s:if test="!q.isEmpty()"><h1><s:property value="q"/>の記事一覧</h1></s:if>
-				<s:else><h4>最近の記事一覧</h4></s:else>
-				<table class="table table-striped">
-					<s:iterator value="rsss">
-					<tr>
-						<td class="td-small">
-							<s:if test="!img_url.isEmpty()"><a href="/<s:property value="%{title.replaceAll('%','%25')}" />/content/<s:property value="id" />" title="<s:property value="description" />">
-							<nowrap><img src="<s:property escape="false" value="img_url" />" class="img-thumbnail img-small" /></nowrap>
-							</a>
-							</s:if>
-						</td>
-						<td>
-							<s:if test="%{num > 0}">
-							<span class="twnum"><s:property value="num" />RT</span>
-							</s:if>
-							<a href="/<s:property value="%{title.replaceAll('%','%25')}" />/content/<s:property value="id" />" title="<s:property value="description" />">
-								<s:property value="title" />
-							</a>
-							<span class="text-light"><s:property value="blog_title" /></span>
-							<p class="text-right text-light">
-								<small class="text-light"><s:date name="date_written" format="yyyy/MM/dd HH:mm" /></small>
-							</p>
-						</td>
-					</tr>
-					</s:iterator>
-				</table>
 			</div>
 		</div>
 	</div>
