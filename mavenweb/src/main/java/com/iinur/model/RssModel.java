@@ -96,9 +96,9 @@ public class RssModel {
 		return list;
 	}
 	
-	public String getImgUrl(String xml){
+	public static String getImgUrl(String xml){
 		String imgUrl = null;
-		Pattern ptn = Pattern.compile("<img.*?src=\"(.*?.(jpg|jpeg|png|gif))\".*?>", Pattern.DOTALL);
+		Pattern ptn = Pattern.compile("<img.*?src=[\"\'](.*?.(jpg|jpeg|png|gif))[\"\'].*?>", Pattern.DOTALL);
 
 		Matcher matcher = ptn.matcher(xml);
 
