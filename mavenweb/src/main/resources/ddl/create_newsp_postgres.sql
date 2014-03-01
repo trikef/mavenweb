@@ -69,3 +69,36 @@ CREATE TABLE tweet_count(
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY(id)
 );
+
+DROP TABLE IF EXISTS tags_analyze_temp;
+CREATE TABLE tags_analyze_temp(
+	id SERIAL,
+	word VARCHAR(200) NOT NULL,
+	maintype VARCHAR(50) NOT NULL,
+	subtype1 VARCHAR(50),
+	subtype2 VARCHAR(50),
+	url VARCHAR(500) NOT NULL,
+	PRIMARY KEY(id)
+);
+
+DROP TABLE IF EXISTS tags_stat_temp;
+CREATE TABLE tags_stat_temp(
+	word VARCHAR(200) NOT NULL,
+	total INTEGER NOT NULL,
+	PRIMARY KEY(word)
+);
+
+DROP TABLE IF EXISTS tags_association_temp;
+CREATE TABLE tags_association_temp(
+	word_x VARCHAR(200) NOT NULL,
+	word_y VARCHAR(200) NOT NULL,
+	total_xy INTEGER,
+	total INTEGER,
+	total_x INTEGER,
+	total_y INTEGER,
+	confidence DOUBLE PRECISION,
+	support DOUBLE PRECISION,
+	lift DOUBLE PRECISION,
+	asoc DOUBLE PRECISION,
+	PRIMARY KEY(word_x,word_y)
+);

@@ -159,10 +159,14 @@ public class RssDao {
 	
 	public void batch_update_tags_asoc(){
 		ResultSetHandler<Long> rsh = new ScalarHandler<Long>();
-		String sql = "SELECT update_tags_association()";
+		String sql1 = "SELECT update_tags_assoc_temp()";
+		String sql2 = "SELECT update_tags_association()";
+		String sql3 = "SELECT replace_tags_assoc()";
 		//long inserts = 0;
 		try {
-			run.query(sql,rsh);
+			run.query(sql1,rsh);
+			run.query(sql2,rsh);
+			run.query(sql3,rsh);
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();
 			throw new RuntimeException(sqle.toString());
