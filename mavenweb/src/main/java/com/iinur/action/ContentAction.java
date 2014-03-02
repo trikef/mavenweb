@@ -24,7 +24,7 @@ public class ContentAction extends ActionSupport {
 	private List<Tag> tags;
 	private List<Tweet> tweets;
 	private List<Rss> rsssRanking;
-	private static int LIMIT_RANKING = 10;
+	private static int LIMIT_RANKING = 30;
 	private static int LIMIT_TWEETS = 3;
 
 	public String getId() {

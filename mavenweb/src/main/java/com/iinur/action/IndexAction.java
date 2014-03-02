@@ -27,7 +27,7 @@ public class IndexAction extends ActionSupport {
     private List<Rss> rsss;
     private List<Rss> rsssRanking;
 	private List<Tag> tags;
-	private int limitRanking = 10;
+	private int LIMIT_RANKING = 30;
 
 	//category
     public String c1;
@@ -73,7 +73,7 @@ public class IndexAction extends ActionSupport {
         	this.setRsss(model.get(c1, c2, d));
         	this.setTags(tagm.getTags());
         }
-    	this.setRsssRanking(model.getRanking(limitRanking));
+    	this.setRsssRanking(model.getRanking(LIMIT_RANKING));
 
 		return "success";
 	}
