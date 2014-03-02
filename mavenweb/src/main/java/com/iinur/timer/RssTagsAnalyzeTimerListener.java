@@ -37,15 +37,14 @@ class RssTagsAnalyzeTimerTask extends TimerTask {
 
 	@Override
 	public void run() {
-		log.debug("batch is started.");
+		log.info("batch is started.");
 		try{
 			RssDao dao = new RssDao();
 			dao.batch_update_tags();
 			dao.batch_update_tags_asoc();
 		} catch (Exception e) {
-			e.printStackTrace();
 			log.error(e.getMessage());
 		}
-		log.debug("batch is end.");
+		log.info("batch is end.");
 	}
 }

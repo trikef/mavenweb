@@ -60,14 +60,14 @@ class RssCrawlerTimerTask extends TimerTask {
 
 	@Override
 	public void run() {
-		log.debug("crawler is started.");
+		log.info("crawler is started.");
+		int count = 0;
 		try{
-			crawler.crawl();
+			count = crawler.crawl();
 		} catch (Exception e) {
-			e.printStackTrace();
 			log.error(e.getMessage());
 		}
-		log.debug("crawler is end.");
+		log.info("crawler is end. update count:" + count);
 	}
 
 }

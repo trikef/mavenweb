@@ -35,7 +35,7 @@ public class RssDao {
 					Rss.class);
 			rsss = run.query("SELECT * FROM rss where title=?", rsh, title);
 		} catch (SQLException sqle) {
-			sqle.printStackTrace();
+			log.error(sqle.getMessage());
 			throw new RuntimeException(sqle.toString());
 		}
 		return rsss.size();
@@ -48,7 +48,7 @@ public class RssDao {
 					Rss.class);
 			rsss = run.query("SELECT * FROM rss where link=?", rsh, link);
 		} catch (SQLException sqle) {
-			sqle.printStackTrace();
+			log.error(sqle.getMessage());
 			throw new RuntimeException(sqle.toString());
 		}
 		return rsss.size();
@@ -73,7 +73,7 @@ public class RssDao {
 						+ "WHERE category1=? and category2=? and date_written > to_date(?,'YYYY-MM-DD')-1 ORDER BY date_written DESC", rsh, category1, category2, day);//yyyy-mm-dd
 			}
 		} catch (SQLException sqle) {
-			sqle.printStackTrace();
+			log.error(sqle.getMessage());
 			throw new RuntimeException(sqle.toString());
 		}
 		return rsss;
@@ -91,7 +91,7 @@ public class RssDao {
 					Rss.class);
 			rsss = run.query(sql, rsh, limit);
 		} catch (SQLException sqle) {
-			sqle.printStackTrace();
+			log.error(sqle.getMessage());
 			throw new RuntimeException(sqle.toString());
 		}
 		return rsss;
@@ -123,7 +123,7 @@ public class RssDao {
 				rsss = run.query(sql, rsh, query, query);
 			}
 		} catch (SQLException sqle) {
-			sqle.printStackTrace();
+			log.error(sqle.getMessage());
 			throw new RuntimeException(sqle.toString());
 		}
 		return rsss;
@@ -138,10 +138,20 @@ public class RssDao {
 							blog_title, category1, category2, title, description, link,
 							date_written, content, img_url);
 		} catch (SQLException sqle) {
-			sqle.printStackTrace();
+			log.error(sqle.getMessage());
 			throw new RuntimeException(sqle.toString());
 		}
 		return inserts;
+	}
+	
+	public void delete(String link){
+		String sql = "DELETE FROM rss WHERE link =?";
+		try{
+			run.update(sql,link);
+		} catch (SQLException sqle){
+			log.error(sqle.getMessage());
+			throw new RuntimeException(sqle.toString());
+		}
 	}
 	
 	public void batch_update_tags(){
@@ -151,7 +161,7 @@ public class RssDao {
 		try {
 			run.query(sql,rsh);
 		} catch (SQLException sqle) {
-			sqle.printStackTrace();
+			log.error(sqle.getMessage());
 			throw new RuntimeException(sqle.toString());
 		}
 		//return inserts;
@@ -168,7 +178,7 @@ public class RssDao {
 			run.query(sql2,rsh);
 			run.query(sql3,rsh);
 		} catch (SQLException sqle) {
-			sqle.printStackTrace();
+			log.error(sqle.getMessage());
 			throw new RuntimeException(sqle.toString());
 		}
 		//return inserts;
@@ -182,7 +192,7 @@ public class RssDao {
 					+ "LEFT JOIN (SELECT url,max(num) as num FROM tweet_count GROUP BY url) t ON t.url = rss.link "
 					+ "where id=?", rsh, id);
 		} catch (SQLException sqle) {
-			sqle.printStackTrace();
+			log.error(sqle.getMessage());
 			throw new RuntimeException(sqle.toString());
 		}
 		return rss;
