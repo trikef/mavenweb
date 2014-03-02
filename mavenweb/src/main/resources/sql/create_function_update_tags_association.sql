@@ -5,6 +5,8 @@ DECLARE
     rec_nowdata                         record;
     total_x_now                        integer;
 BEGIN
+	TRUNCATE TABLE tags_association_temp;
+
 	OPEN cursor_word FOR
 						SELECT DISTINCT word FROM tags_analyze_temp;
 
@@ -15,7 +17,6 @@ BEGIN
 		END IF;
 			SELECT total INTO total_x_now FROM tags_stat_temp WHERE word = rec_nowdata.word;
 
-			TRUNCATE TABLE tags_association_temp;
 			INSERT INTO tags_association_temp(word_x,word_y,total_xy,total_x,total_y)
 			SELECT rec_nowdata.word,ta.word,count(*),total_x_now,ts.total
 			FROM (SELECT DISTINCT word,url FROM tags_analyze_temp) ta INNER JOIN tags_stat_temp ts ON ta.word = ts.word
