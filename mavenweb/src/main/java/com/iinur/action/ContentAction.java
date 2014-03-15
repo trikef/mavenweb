@@ -1,11 +1,14 @@
 package com.iinur.action;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.struts2.ServletActionContext;
+import org.apache.struts2.interceptor.ServletResponseAware;
 
 import com.iinur.core.data.bean.Rss;
 import com.iinur.core.data.bean.Tag;
@@ -15,7 +18,7 @@ import com.iinur.model.TagModel;
 import com.iinur.model.TwitterModel;
 import com.opensymphony.xwork2.ActionSupport;
 
-public class ContentAction extends ActionSupport {
+public class ContentAction extends ActionSupport implements ServletResponseAware{
 
 	private static final long serialVersionUID = 1L;
 
@@ -73,15 +76,26 @@ public class ContentAction extends ActionSupport {
 
         RssModel model = new RssModel(sc);
         if(!StringUtils.isEmpty(id)){
-        	this.setRss(model.get(Integer.parseInt(id)));
-        	
-        	TagModel tmodel = new TagModel();
-        	this.setTags(tmodel.getRelationTags(getRss().getLink()));
-        	TwitterModel twmodel = new TwitterModel();
-        	this.setTweets(twmodel.getWhereUrl(getRss().getLink(), LIMIT_TWEETS));
-        	this.setRsssRanking(model.getRanking(LIMIT_RANKING));
+        	Rss r = model.get(Integer.parseInt(id));
+        	if(r==null){
+        		this.response.setStatus(HttpServletResponse.SC_NOT_FOUND );
+        	} else {
+	        	this.setRss(r);
+	        	
+	        	TagModel tmodel = new TagModel();
+	        	this.setTags(tmodel.getRelationTags(getRss().getLink()));
+	        	TwitterModel twmodel = new TwitterModel();
+	        	this.setTweets(twmodel.getWhereUrl(getRss().getLink(), LIMIT_TWEETS));
+        	}
+	       	this.setRsssRanking(model.getRanking(LIMIT_RANKING));
         }
 
-		return "success";
+		return SUCCESS;
+	}
+
+	private HttpServletResponse response;
+	
+	public void setServletResponse(HttpServletResponse response) {
+		this.response = response;
 	}
 }

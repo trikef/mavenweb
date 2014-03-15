@@ -71,6 +71,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
+				<s:if test="rss!=null">
 				<table class="table table-striped">
 					<tr>
 						<td class="td-small">
@@ -95,6 +96,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 						</td>
 					</tr>
 				</table>
+				</s:if>
+				<s:else><h1>404 Not Found</h1></s:else>
 				<s:if test="!tags.isEmpty()">
 				<div class="row">
 					<div class="col-xs-12">
@@ -113,6 +116,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 		</div>
 		<div class="row">
 			<div class="col-md-9">
+				<s:if test="rss!=null">
 				<table id="content" class="table">
 					<tr>
 						<td class="content-resize" colspan="2">
@@ -121,6 +125,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 					</tr>
 				</table>
 				<a href="<s:property value="rss.link" />" title="<s:property value="rss.description" />" target="blank">[元の記事を読む]</a>
+				</s:if>
 				<s:if test="tweets != null && !tweets.isEmpty()">
 				<h4>この記事へのツイート</h4>
 				<table id="tweets" class="table table-striped">
